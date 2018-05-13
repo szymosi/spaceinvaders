@@ -8,6 +8,7 @@ private:
 	int hp;
 public:
 	player();
+	player(Vector2f position, int hp);
 	~player();
 	void SetPosition(Vector2f position);
 	void SetHP(int newhp);

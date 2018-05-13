@@ -2,8 +2,14 @@
 #include "player.h"
 
 
-player::player()
+player::player():player(Vector2f(640,360),100)
 {
+}
+
+player::player(Vector2f setposition, int sethp)
+{
+	position = setposition;
+	hp = sethp;
 }
 
 

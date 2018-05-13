@@ -4,9 +4,16 @@
 class game
 {
 private:
-	int score;
+	unsigned int score;
+	unsigned int level;
+
+	player*player;
+	vector//vector poziomow
 public:
 	game();
+	game(int setscore, int setlevel);
 	~game();
+	void loop();
+
 };
 
