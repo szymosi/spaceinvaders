@@ -17,7 +17,7 @@ public:
 	void SetHP(int newhp);
 	sf::Vector2i GetPosition();
 	int GetHP();
-	void Shoot();
-	void drawplayer(RenderWindow*window);
+	Bullet* Shoot();
+//	void drawplayer(RenderWindow*window);
 };
 

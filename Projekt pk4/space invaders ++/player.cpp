@@ -43,12 +43,13 @@ int Player::GetHP()
 	return hp;
 }
 
-void Player::Shoot()
+Bullet* Player::Shoot()
 {
-//	Bullet
+	Bullet*bullet = new Bullet(Vector2i(position.x, position.y - (GetSize().y / 2)));
+	return bullet;
 }
 
-void Player::drawplayer(RenderWindow*window)
+/*void Player::drawplayer(RenderWindow*window)
 {
 	MySprite::draw(window, position);
-}
+}*/

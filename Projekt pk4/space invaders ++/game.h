@@ -1,6 +1,7 @@
 #pragma once
 
 #include "player.h"
+#include "vector"
 #include <SFML\Graphics.hpp>
 
 #define height 720
@@ -13,6 +14,7 @@ private:
 	unsigned int level;
 
 	Player*player;
+	std::vector<Bullet*> bullets;
 
 	Event event;
 	RenderWindow*window;
@@ -23,6 +25,6 @@ public:
 	~Game();
 	Player*getplayer();
 	void loop();
-
+	void draweverything();
 };
 

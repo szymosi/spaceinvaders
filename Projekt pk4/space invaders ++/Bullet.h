@@ -15,8 +15,8 @@ public:
 	Bullet(Vector2i setposition, Vector2i setspeed, int setradius);
 	~Bullet();
 
-	void move();
+	Vector2i getposition();
 
-	void draw(RenderWindow*window);
+	void move();
 };
 

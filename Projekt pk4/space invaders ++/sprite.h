@@ -13,6 +13,9 @@ private:
 	MySprite();
 	MySprite(std::string filename);
 	~MySprite();
+
+	Vector2u GetSize();
+
 	void SetTexture(std::string filename);
 	void SetGraphic(std::string filename);
 	bool CheckIfOnScreen(Vector2i WindowSize, Vector2i position);

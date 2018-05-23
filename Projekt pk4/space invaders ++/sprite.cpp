@@ -17,6 +17,11 @@ MySprite::~MySprite()
 {
 }
 
+Vector2u MySprite::GetSize()
+{
+	return size;
+}
+
 void MySprite::SetTexture(std::string filename)
 {
 	texture.loadFromFile(filename);

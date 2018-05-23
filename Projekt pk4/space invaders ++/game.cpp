@@ -36,8 +36,20 @@ void Game::loop()
 		{
 			window->close();
 		}
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+			bullets.push_back(player->Shoot());
 		player->SetPosition(Mouse::getPosition(*window));
-		player->drawplayer(window);
+		draweverything();
 		window->display();
+	}
+}
+
+void Game::draweverything()
+{
+	player->draw(window, player->GetPosition());
+	for (auto i = 0; i < bullets.size(); i++)
+	{
+		bullets[i]->draw(window, bullets[i]->getposition());
+		bullets[i]->move();
 	}
 }
