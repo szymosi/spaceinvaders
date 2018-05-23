@@ -13,8 +13,8 @@ public:
 	~MySprite();
 	void SetTexture();
 	void SetGraphic();
-	bool CheckIfOnScreen(Vector2i WindowSize, Vector2f position);
+	bool CheckIfOnScreen(Vector2i WindowSize, Vector2i position);
 	void draw(RenderTarget& target, RenderStates states)const override;
-	void draw(RenderWindow*window, Vector2f position);
+	void draw(RenderWindow*window, Vector2i position);
 };
 
