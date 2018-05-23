@@ -1,19 +1,22 @@
 #pragma once
 
 #include "sprite.h"
-class player : public sprite
+
+class Player : public MySprite
 {
 private:
 	Vector2f position;
 	int hp;
 public:
-	player();
-	player(Vector2f position, int hp);
-	~player();
+	Player();
+	Player(Vector2f position, int hp);
+	~Player();
 	void SetPosition(Vector2f position);
+	void Player::SetPosition(Vector2i newposition);
 	void SetHP(int newhp);
 	sf::Vector2f GetPosition();
 	int GetHP();
 	void Shoot();
+	void drawplayer(RenderWindow*window);
 };
 

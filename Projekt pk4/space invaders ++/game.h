@@ -1,18 +1,29 @@
 #pragma once
 
 #include "player.h"
-class game
+#include <SFML\Graphics.hpp>
+
+#define height 720
+#define width 1280
+
+class Game
 {
 private:
 	unsigned int score;
 	unsigned int level;
 
-	player*player;
-	vector//vector poziomow
+	Player*player;
+
+	Event event;
+	RenderWindow window;
+
 public:
-	game();
-	game(int setscore, int setlevel);
-	~game();
+//	game();
+	Game();
+	Game(int setscore, int setlevel);
+	~Game();
+	void initialize();
+	Player*getplayer();
 	void loop();
 
 };

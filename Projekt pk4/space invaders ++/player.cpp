@@ -2,41 +2,52 @@
 #include "player.h"
 
 
-player::player():player(Vector2f(640,360),100)
+
+Player::Player():Player(Vector2f(640,360),100)
 {
 }
 
-player::player(Vector2f setposition, int sethp)
+Player::Player(Vector2f setposition, int sethp)
 {
 	position = setposition;
 	hp = sethp;
 }
 
 
-player::~player()
+Player::~Player()
 {
 }
 
-void player::SetPosition(Vector2f newposition)
+void Player::SetPosition(Vector2f newposition)
 {
 	position = newposition;
 }
 
-void player::SetHP(int newhp)
+void Player::SetPosition(Vector2i newposition)
+{
+	position =(Vector2f)newposition;
+}
+
+void Player::SetHP(int newhp)
 {
 	hp = newhp;
 }
 
-sf::Vector2f player::GetPosition()
+sf::Vector2f Player::GetPosition()
 {
 	return position;
 }
 
-int player::GetHP()
+int Player::GetHP()
 {
 	return hp;
 }
 
-void player::Shoot()
+void Player::Shoot()
 {
+}
+
+void Player::drawplayer(RenderWindow*window)
+{
+	MySprite::draw(window, position);
 }

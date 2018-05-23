@@ -2,30 +2,31 @@
 #include "sprite.h"
 
 
-sprite::sprite()
+MySprite::MySprite()
 {
+	SetGraphic();
 }
 
 
-sprite::~sprite()
+MySprite::~MySprite()
 {
 }
 
-void sprite::SetTexture()
+void MySprite::SetTexture()
 {
-	texture.loadFromFile("image.png");
+	texture.loadFromFile("Image.png");
 	size = texture.getSize();
 }
 
 
-void sprite::SetGraphic()
+void MySprite::SetGraphic()
 {
 	SetTexture();
 	graphic.setTexture(texture);
 	graphic.setOrigin(Vector2f(size.x / 2, size.y / 2));
 }
 
-bool sprite::CheckIfOnScreen(Vector2i WindowSize,Vector2f position)
+bool MySprite::CheckIfOnScreen(Vector2i WindowSize,Vector2f position)
 {
 	if (position.x >= 0 && position.y > 0)
 		if (position.x < WindowSize.x && position.y < WindowSize.y)
@@ -33,7 +34,13 @@ bool sprite::CheckIfOnScreen(Vector2i WindowSize,Vector2f position)
 	return false;
 }
 
-void sprite::draw(RenderTarget & target, RenderStates states) const
+void MySprite::draw(RenderTarget & target, RenderStates states) const
 {
 	target.draw(graphic, states);
+}
+
+void MySprite::draw(RenderWindow*window, Vector2f position)
+{
+	graphic.setPosition(position);
+	window->draw(graphic);
 }
