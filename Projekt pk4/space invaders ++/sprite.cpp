@@ -4,7 +4,12 @@
 
 MySprite::MySprite()
 {
-	SetGraphic();
+	SetGraphic("image.png");
+}
+
+MySprite::MySprite(std::string filename)
+{
+	SetGraphic(filename);
 }
 
 
@@ -12,16 +17,16 @@ MySprite::~MySprite()
 {
 }
 
-void MySprite::SetTexture()
+void MySprite::SetTexture(std::string filename)
 {
-	texture.loadFromFile("Image.png");
+	texture.loadFromFile(filename);
 	size = texture.getSize();
 }
 
 
-void MySprite::SetGraphic()
+void MySprite::SetGraphic(std::string filename)
 {
-	SetTexture();
+	SetTexture(filename);
 	graphic.setTexture(texture);
 	graphic.setOrigin(Vector2f(size.x / 2, size.y / 2));
 }
