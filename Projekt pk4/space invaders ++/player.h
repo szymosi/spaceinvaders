@@ -1,6 +1,7 @@
 #pragma once
 
 #include "sprite.h"
+#include "Bullet.h"
 
 class Player : public MySprite
 {

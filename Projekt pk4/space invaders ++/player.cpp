@@ -7,7 +7,7 @@ Player::Player():Player(Vector2i(640,360),100)
 {
 }
 
-Player::Player(Vector2i setposition, int sethp)
+Player::Player(Vector2i setposition, int sethp):MySprite("Player.png")
 {
 	position = setposition;
 	hp = sethp;
@@ -45,6 +45,7 @@ int Player::GetHP()
 
 void Player::Shoot()
 {
+//	Bullet
 }
 
 void Player::drawplayer(RenderWindow*window)

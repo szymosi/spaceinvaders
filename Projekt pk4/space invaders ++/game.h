@@ -18,7 +18,6 @@ private:
 	RenderWindow*window;
 
 public:
-//	game();
 	Game();
 	Game(int setscore, int setlevel);
 	~Game();
