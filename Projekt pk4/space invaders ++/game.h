@@ -15,14 +15,13 @@ private:
 	Player*player;
 
 	Event event;
-	RenderWindow window;
+	RenderWindow*window;
 
 public:
 //	game();
 	Game();
 	Game(int setscore, int setlevel);
 	~Game();
-	void initialize();
 	Player*getplayer();
 	void loop();
 

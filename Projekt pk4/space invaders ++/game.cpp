@@ -6,12 +6,13 @@ Game::Game() :Game(0, 0)
 {
 }
 
-Game::Game(int setscore, int setlevel): window{ VideoMode{ width, height }, "testy",Style::None }
+Game::Game(int setscore, int setlevel)
 {
 	score = setscore;
 	level = setlevel;
 	player = new Player();
-
+	window = new RenderWindow(VideoMode{ width, height }, "testy", Style::Default);
+	window->setFramerateLimit(60);
 }
 
 
@@ -19,10 +20,6 @@ Game::~Game()
 {
 }
 
-void Game::initialize()
-{
-	window.setFramerateLimit(60);
-}
 
 Player * Game::getplayer()
 {
@@ -31,16 +28,16 @@ Player * Game::getplayer()
 
 void Game::loop()
 {
-	while (window.isOpen())
+	while (window->isOpen())
 	{
-		window.clear(Color::Black);
-		window.pollEvent(event);
+		window->clear(Color::Black);
+		window->pollEvent(event);
 		if (event.type == Event::Closed)
 		{
-			window.close();
+			window->close();
 		}
-		player->SetPosition(Mouse::getPosition(window));
-		player->drawplayer(&window);
-		window.display();
+		player->SetPosition(Mouse::getPosition(*window));
+		player->drawplayer(window);
+		window->display();
 	}
 }
