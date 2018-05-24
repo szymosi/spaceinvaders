@@ -15,6 +15,7 @@ public:
 	void SetPosition(Vector2i position);
 	void SetPosition(Vector2f newposition);
 	void SetHP(int newhp);
+	void MovePlayerUsingMouse(Window* window);
 	sf::Vector2i GetPosition();
 	int GetHP();
 	Bullet* Shoot();

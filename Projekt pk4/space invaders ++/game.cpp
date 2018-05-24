@@ -13,6 +13,7 @@ Game::Game(int setscore, int setlevel)
 	player = new Player();
 	window = new RenderWindow(VideoMode{ width, height }, "testy", Style::Default);
 	window->setFramerateLimit(60);
+	window->setMouseCursorVisible(false);
 }
 
 
@@ -38,7 +39,7 @@ void Game::loop()
 		}
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			bullets.push_back(player->Shoot());
-		player->SetPosition(Mouse::getPosition(*window));
+		player->MovePlayerUsingMouse(window);
 		draweverything();
 		window->display();
 	}

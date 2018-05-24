@@ -33,6 +33,11 @@ void Player::SetHP(int newhp)
 	hp = newhp;
 }
 
+void Player::MovePlayerUsingMouse(Window* window)
+{
+	position=Mouse::getPosition(*window);
+}
+
 sf::Vector2i Player::GetPosition()
 {
 	return position;
