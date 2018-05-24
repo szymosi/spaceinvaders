@@ -35,7 +35,7 @@ void Game::movebullets()
 	for (auto i = 0; i < bullets.size(); i++)
 	{
 		bullets[i]->move();
-		if (!bullets[i]->CheckIfOnScreen((Vector2i)window->getSize(), bullets[i]->getposition()))
+		if (!bullets[i]->CheckIfOnScreen(window->getSize(), bullets[i]->getposition()))
 		{
 			delete bullets[i];
 			bullets.erase(bullets.begin()+i);
