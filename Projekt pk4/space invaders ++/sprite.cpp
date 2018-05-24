@@ -38,7 +38,7 @@ void MySprite::SetGraphic(std::string filename)
 
 bool MySprite::CheckIfOnScreen(Vector2i WindowSize,Vector2i position)
 {
-	if (position.x >= 0 && position.y > 0)
+	if (position.x >= 0 && position.y >= 0)
 		if (position.x < WindowSize.x && position.y < WindowSize.y)
 			return true;
 	return false;

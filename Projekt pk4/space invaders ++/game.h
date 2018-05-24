@@ -24,6 +24,7 @@ public:
 	Game(int setscore, int setlevel);
 	~Game();
 	Player*getplayer();
+	void movebullets();
 	void loop();
 	void draweverything();
 };
