@@ -39,8 +39,6 @@ void Player::SetPosition(Vector2i newposition,Vector2u windowsize)
 		newposition.y = windowsize.y-1;
 
 	position =(Vector2u)newposition;
-
-	std::cout << position.x << "/t" << position.y << std::endl;
 }
 
 void Player::SetHP(int newhp)
@@ -60,8 +58,16 @@ int Player::GetHP()
 
 Bullet* Player::Shoot()
 {
-	Bullet*bullet = new Bullet(Vector2u(position.x, position.y - (GetSize().y / 2)));
-	return bullet;
+	if (Clock.getElapsedTime().asSeconds() > timebetweenbullets)
+	{
+		Bullet*bullet = new Bullet(Vector2u(position.x, position.y - (GetSize().y / 2)));
+		Clock.restart();
+		return bullet;
+	}
+	else
+	{
+		return NULL;
+	}
 }
 
 /*void Player::drawplayer(RenderWindow*window)

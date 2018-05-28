@@ -9,6 +9,8 @@ class Player : public MySprite
 private:
 //	Vector2i position;
 	int hp;
+	Clock Clock;
+	float timebetweenbullets = 0.2f;
 public:
 	Player();
 	Player(Vector2u position, int hp);

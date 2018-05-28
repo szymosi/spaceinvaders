@@ -63,7 +63,11 @@ void Game::loop()
 			window->close();
 		}
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-			bullets.push_back(player->Shoot());
+		{
+			Bullet*tmp = player->Shoot();
+			if (tmp != NULL)
+				bullets.push_back(tmp);
+		}
 		player->SetPosition(Mouse::getPosition(*window),window->getSize());
 
 		movebullets();

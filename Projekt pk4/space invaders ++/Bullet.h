@@ -8,6 +8,7 @@ private:
 //	Vector2i position;
 	Vector2i speed;
 	int radius;
+	
 
 public:
 	Bullet();
