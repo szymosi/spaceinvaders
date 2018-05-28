@@ -18,5 +18,6 @@ public:
 	Vector2u getposition();
 
 	void move();
+	void move(float frametime);
 };
 

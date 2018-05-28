@@ -27,9 +27,20 @@ void Player::SetPosition(Vector2u newposition)
 	position = newposition;
 }
 
-void Player::SetPosition(Vector2i newposition)
+void Player::SetPosition(Vector2i newposition,Vector2u windowsize)
 {
+	if (newposition.x < 0)
+		newposition.x = 0;
+	if (newposition.y < 0)
+		newposition.y = 0;
+	if (newposition.x >= windowsize.x)
+		newposition.x = windowsize.x-1;
+	if (newposition.y >= windowsize.y)
+		newposition.y = windowsize.y-1;
+
 	position =(Vector2u)newposition;
+
+	std::cout << position.x << "/t" << position.y << std::endl;
 }
 
 void Player::SetHP(int newhp)

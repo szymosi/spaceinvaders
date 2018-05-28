@@ -13,6 +13,7 @@ Game::Game(int setscore, int setlevel)
 	player = new Player();
 	window = new RenderWindow(VideoMode{ width, height }, "testy", Style::Default);
 	window->setFramerateLimit(60);
+	window->setMouseCursorVisible(false);
 }
 
 
@@ -30,11 +31,16 @@ Player * Game::getplayer()
 	return player;
 }
 
+float Game::getframetime()
+{
+	return frametime;
+}
+
 void Game::movebullets()
 {
 	for (auto i = 0; i < bullets.size(); i++)
 	{
-		bullets[i]->move();
+		bullets[i]->move(frametime);
 		if (!bullets[i]->CheckIfOnScreen(window->getSize(), bullets[i]->getposition()))
 		{
 			delete bullets[i];
@@ -45,8 +51,11 @@ void Game::movebullets()
 
 void Game::loop()
 {
+	Clock.restart();
 	while (window->isOpen())
 	{
+		frametime = Clock.getElapsedTime().asSeconds();
+		Clock.restart();
 		window->clear(Color::Black);
 		window->pollEvent(event);
 		if (event.type == Event::Closed)
@@ -55,11 +64,12 @@ void Game::loop()
 		}
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			bullets.push_back(player->Shoot());
-		player->SetPosition(Mouse::getPosition(*window));
+		player->SetPosition(Mouse::getPosition(*window),window->getSize());
 
 		movebullets();
 		draweverything();
 		window->display();
+		//std::cout << frametime << std::endl;
 	}
 }
 
@@ -71,6 +81,6 @@ void Game::draweverything()
 	for (auto i = 0; i < bullets.size(); i++)
 	{
 		bullets[i]->draw(window, bullets[i]->getposition());
-		bullets[i]->move();
+//		bullets[i]->move();
 	}
 }

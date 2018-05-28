@@ -6,7 +6,7 @@ Bullet::Bullet():Bullet(Vector2u(0,0))
 {
 }
 
-Bullet::Bullet(Vector2u position):Bullet(position, Vector2i(0, -10),5)
+Bullet::Bullet(Vector2u position):Bullet(position, Vector2i(0, -1000),5)
 {
 }
 
@@ -31,4 +31,9 @@ void Bullet::move()
 {
 	position.x += speed.x;
 	position.y += speed.y;
+}
+void Bullet::move(float frametime)
+{
+	position.x +=frametime* (float)speed.x;
+	position.y +=frametime* (float)speed.y;
 }

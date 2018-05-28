@@ -2,6 +2,7 @@
 
 #include "sprite.h"
 #include "Bullet.h"
+#include <iostream>
 
 class Player : public MySprite
 {
@@ -13,7 +14,7 @@ public:
 	Player(Vector2u position, int hp);
 	~Player();
 	void SetPosition(Vector2u position);
-	void SetPosition(Vector2i newposition);
+	void SetPosition(Vector2i newposition,Vector2u windowsize);
 	void SetHP(int newhp);
 	sf::Vector2u GetPosition();
 	int GetHP();
