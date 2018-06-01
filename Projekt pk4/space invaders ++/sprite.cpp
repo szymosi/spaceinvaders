@@ -59,3 +59,9 @@ void MySprite::draw(RenderWindow*window, Vector2u position)
 	graphic.setPosition((Vector2f)position);
 	window->draw(graphic);
 }
+
+void MySprite::draw(RenderWindow * window)
+{
+	graphic.setPosition((Vector2f)position);
+	window->draw(graphic);
+}

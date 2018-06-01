@@ -5,14 +5,21 @@ class SmallEnemy :public Enemy
 {
 private:
 	bool moveleft;
-	float timebetweenshoots=0.5;
+	float speed;
+	Vector2u startpoint;
+	unsigned int range;
+
+	float timebetweenshoots = 0.5;
+	
 public:
 	SmallEnemy();
 	SmallEnemy(Vector2u position);
-	SmallEnemy(Vector2u position,bool moveleft);
+	SmallEnemy(Vector2u position, unsigned int range);
+	SmallEnemy(Vector2u position, unsigned int range,float speed);
+	SmallEnemy(Vector2u position, unsigned int range, float speed,bool moveleft);
 	~SmallEnemy();
 
-	void move();
+	void move(float frametime);
 	void shoot();
 };
 

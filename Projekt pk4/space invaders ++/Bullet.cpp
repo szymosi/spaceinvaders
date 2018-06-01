@@ -6,7 +6,11 @@ Bullet::Bullet():Bullet(Vector2u(0,0))
 {
 }
 
-Bullet::Bullet(Vector2u position):Bullet(position, Vector2i(0, -1000),5)
+Bullet::Bullet(Vector2u position):Bullet(position, Vector2i(0, -1000))
+{
+}
+
+Bullet::Bullet(Vector2u setposition, Vector2i setspeed) : Bullet(position, setspeed, 5)
 {
 }
 

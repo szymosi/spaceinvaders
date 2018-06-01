@@ -13,6 +13,7 @@ private:
 public:
 	Bullet();
 	Bullet(Vector2u position);
+	Bullet(Vector2u setposition, Vector2i setspeed);
 	Bullet(Vector2u setposition, Vector2i setspeed, int setradius);
 	~Bullet();
 

@@ -52,7 +52,7 @@ void Game::movebullets()
 void Game::loop()
 {
 	Clock.restart();
-	enemy = new SmallEnemy;
+	enemy = new SmallEnemy(Vector2u(500,100));
 	while (window->isOpen())
 	{
 		frametime = Clock.getElapsedTime().asSeconds();
@@ -72,8 +72,11 @@ void Game::loop()
 		player->SetPosition(Mouse::getPosition(*window),window->getSize());
 
 		//
-		enemy->move();
-		enemy->draw(window,enemy->getposition());
+		enemy->move(frametime);
+		enemy->shoot();
+		if(enemy->getbullets().size()>0)
+		bullets.insert(this->bullets.end(), enemy->getbullets().begin(), enemy->getbullets().end());
+		enemy->draw(window);
 		//
 
 		movebullets();
@@ -87,10 +90,10 @@ void Game::loop()
 
 void Game::draweverything()
 {
-	player->draw(window, player->GetPosition());
+	player->draw(window);
 	for (auto i = 0; i < bullets.size(); i++)
 	{
-		bullets[i]->draw(window, bullets[i]->getposition());
+		bullets[i]->draw(window);
 //		bullets[i]->move();
 	}
 }

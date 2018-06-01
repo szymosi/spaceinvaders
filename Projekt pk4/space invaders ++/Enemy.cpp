@@ -20,3 +20,8 @@ int Enemy::gethp()
 {
 	return hp;
 }
+
+std::vector<Bullet*> Enemy::getbullets()
+{
+	return bullets;
+}
