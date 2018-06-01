@@ -12,7 +12,6 @@ Bullet::Bullet(Vector2u position):Bullet(position, Vector2i(0, -1000),5)
 
 Bullet::Bullet(Vector2u setposition, Vector2i setspeed, int setradius) : MySprite("Bullet.png",setposition)
 {
-//	position = setposition;
 	speed = setspeed;
 	radius = setradius;
 }

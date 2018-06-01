@@ -2,6 +2,8 @@
 
 #include "player.h"
 #include "vector"
+#include "Enemy.h"
+#include "SmallEnemy.h"
 #include <SFML\Graphics.hpp>
 #include<iostream>
 
@@ -17,6 +19,7 @@ private:
 
 	Player*player;
 	std::vector<Bullet*> bullets;
+	Enemy*enemy;
 
 	Event event;
 	RenderWindow*window;

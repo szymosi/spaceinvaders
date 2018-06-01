@@ -10,7 +10,7 @@ private:
 //	Vector2i position;
 	int hp;
 	Clock Clock;
-	float timebetweenbullets = 0.2f;
+	float timebetweenbullets = 0.2;
 public:
 	Player();
 	Player(Vector2u position, int hp);
