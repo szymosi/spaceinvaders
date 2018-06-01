@@ -21,7 +21,7 @@ int Enemy::gethp()
 	return hp;
 }
 
-std::vector<Bullet*> Enemy::getbullets()
+const std::vector<Bullet*> & Enemy::getbullets()
 {
 	return bullets;
 }

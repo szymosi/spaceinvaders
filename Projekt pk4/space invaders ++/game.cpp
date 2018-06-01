@@ -74,8 +74,8 @@ void Game::loop()
 		//
 		enemy->move(frametime);
 		enemy->shoot();
-		if(enemy->getbullets().size()>0)
-		bullets.insert(this->bullets.end(), enemy->getbullets().begin(), enemy->getbullets().end());
+		if (enemy->getbullets().size() > 0)
+			bullets.insert(this->bullets.end(), enemy->getbullets().begin(), enemy->getbullets().end());
 		enemy->draw(window);
 		//
 

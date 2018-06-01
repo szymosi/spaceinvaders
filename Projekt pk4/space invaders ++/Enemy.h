@@ -14,7 +14,7 @@ public:
 	~Enemy();
 	Vector2u getposition();
 	int gethp();
-	std::vector<Bullet*> getbullets();
+	const std::vector<Bullet*> & getbullets();
 
 	virtual void move(float frametime) {};
 	virtual void shoot() {};
