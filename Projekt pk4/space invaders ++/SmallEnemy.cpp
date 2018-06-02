@@ -20,11 +20,12 @@ SmallEnemy::SmallEnemy(Vector2u position, unsigned int range, float speed): Smal
 
 SmallEnemy::SmallEnemy(Vector2u position, unsigned int range, float speed, bool moveleft)
 {
-	this->moveleft = moveleft;
 	this->position = position;
+	this->moveleft = moveleft;
 	this->startpoint = position;
 	this->range = range;
 	this->speed = speed;
+	this->SetGraphic("SmallEnemy.png");
 	Clock.restart();
 }
 
@@ -69,7 +70,9 @@ void SmallEnemy::shoot()
 	bullets.clear();
 	if (Clock.getElapsedTime().asSeconds() > timebetweenshoots)
 	{
-		bullets.push_back(new Bullet(Vector2u(this->position.x, this->position.y + (GetSize().y / 2)),Vector2i(0,100)));
+		bullets.push_back(new Bullet(Vector2u(this->position.x, this->position.y + (GetSize().y / 2)),Vector2i(0,bulletspeed)));
+		bullets.push_back(new Bullet(Vector2u(this->position.x, this->position.y + (GetSize().y / 2)), Vector2i(sin30deg*bulletspeed, cos30deg*bulletspeed)));
+		bullets.push_back(new Bullet(Vector2u(this->position.x, this->position.y + (GetSize().y / 2)), Vector2i(-(sin30deg*bulletspeed), cos30deg*bulletspeed)));
 		Clock.restart();
 	}
 }

@@ -9,6 +9,8 @@ Enemy::Enemy()
 
 Enemy::~Enemy()
 {
+	for (auto i = 0; i < this->bullets.size(); i++)
+		delete bullets[i];
 }
 
 Vector2u Enemy::getposition()

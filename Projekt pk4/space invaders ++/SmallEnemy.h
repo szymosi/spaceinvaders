@@ -8,8 +8,12 @@ private:
 	float speed;
 	Vector2u startpoint;
 	unsigned int range;
+	float bulletspeed=150;
 
 	float timebetweenshoots = 1.0;
+
+	float sin30deg = 0.5;
+	float cos30deg = 0.86602540378;
 	
 public:
 	SmallEnemy();
