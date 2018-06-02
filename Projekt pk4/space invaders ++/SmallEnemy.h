@@ -9,7 +9,7 @@ private:
 	Vector2u startpoint;
 	unsigned int range;
 
-	float timebetweenshoots = 0.5;
+	float timebetweenshoots = 1.0;
 	
 public:
 	SmallEnemy();

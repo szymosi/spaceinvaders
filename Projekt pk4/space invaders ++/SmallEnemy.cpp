@@ -10,11 +10,11 @@ SmallEnemy::SmallEnemy(Vector2u position) : SmallEnemy(position,200)
 {
 }
 
-SmallEnemy::SmallEnemy(Vector2u position, unsigned int range): SmallEnemy(position, 200,0)
+SmallEnemy::SmallEnemy(Vector2u position, unsigned int range): SmallEnemy(position, range,150)
 {
 }
 
-SmallEnemy::SmallEnemy(Vector2u position, unsigned int range, float speed): SmallEnemy(position, 100, 50, 0)
+SmallEnemy::SmallEnemy(Vector2u position, unsigned int range, float speed): SmallEnemy(position, range, speed, 0)
 {
 }
 
@@ -38,7 +38,7 @@ void SmallEnemy::move(float frametime)
 	unsigned int newposition;
 	if (moveleft)
 	{
-		newposition = position.x - (frametime * speed);
+		newposition = position.x - (int)(frametime * speed);
 		if (newposition > startpoint.x - range)
 		{
 			position.x = newposition;
@@ -51,7 +51,7 @@ void SmallEnemy::move(float frametime)
 	}
 	else 
 	{
-		newposition = position.x + (frametime * speed);
+		newposition = position.x + (int)(frametime * speed);
 		if (newposition < startpoint.x + range)
 		{
 			position.x = newposition;
@@ -70,7 +70,6 @@ void SmallEnemy::shoot()
 	if (Clock.getElapsedTime().asSeconds() > timebetweenshoots)
 	{
 		bullets.push_back(new Bullet(Vector2u(this->position.x, this->position.y + (GetSize().y / 2)),Vector2i(0,100)));
-	//	bullets.push_back(new Bullet(Vector2u(position.x, position.y + (GetSize().y / 2)), Vector2i(0, 100)));
 		Clock.restart();
 	}
 }
