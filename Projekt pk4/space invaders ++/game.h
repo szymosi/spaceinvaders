@@ -4,6 +4,7 @@
 #include "vector"
 #include "Enemy.h"
 #include "SmallEnemy.h"
+#include "MediumEnemy.h"
 #include <SFML\Graphics.hpp>
 #include<iostream>
 

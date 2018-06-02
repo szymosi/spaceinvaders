@@ -9,7 +9,7 @@ private:
 	unsigned int range;
 	float bulletspeed;
 
-	float timebetweenshoots = 1.0;
+	float timebetweenshoots = 1.5;
 
 	float sin30deg = 0.5;
 	float cos30deg = 0.86602540378;
@@ -26,4 +26,3 @@ public:
 	void move(float frametime);
 	void shoot();
 };
-
