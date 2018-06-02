@@ -1,6 +1,5 @@
 #pragma once
 #include "Enemy.h"
-#include "Bullet.h"
 class SmallEnemy :public Enemy
 {
 private:
@@ -8,7 +7,7 @@ private:
 	float speed;
 	Vector2u startpoint;
 	unsigned int range;
-	float bulletspeed=150;
+	float bulletspeed;
 
 	float timebetweenshoots = 1.0;
 
