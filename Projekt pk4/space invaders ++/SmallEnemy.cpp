@@ -14,17 +14,22 @@ SmallEnemy::SmallEnemy(Vector2u position, unsigned int range): SmallEnemy(positi
 {
 }
 
-SmallEnemy::SmallEnemy(Vector2u position, unsigned int range, float speed): SmallEnemy(position, range, speed, 0)
+SmallEnemy::SmallEnemy(Vector2u position, unsigned int range, float speed): SmallEnemy(position, range, speed, 150)
 {
 }
 
-SmallEnemy::SmallEnemy(Vector2u position, unsigned int range, float speed, bool moveleft)
+SmallEnemy::SmallEnemy(Vector2u position, unsigned int range, float speed, float bulletspeed):SmallEnemy(position, range, speed, bulletspeed,0)
+{
+}
+
+SmallEnemy::SmallEnemy(Vector2u position, unsigned int range, float speed, float bulletspeed, bool moveleft)
 {
 	this->position = position;
 	this->moveleft = moveleft;
 	this->startpoint = position;
 	this->range = range;
 	this->speed = speed;
+	this->bulletspeed = bulletspeed;
 	this->SetGraphic("SmallEnemy.png");
 	Clock.restart();
 }

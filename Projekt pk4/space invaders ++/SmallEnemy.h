@@ -20,7 +20,8 @@ public:
 	SmallEnemy(Vector2u position);
 	SmallEnemy(Vector2u position, unsigned int range);
 	SmallEnemy(Vector2u position, unsigned int range,float speed);
-	SmallEnemy(Vector2u position, unsigned int range, float speed,bool moveleft);
+	SmallEnemy(Vector2u position, unsigned int range, float speed,float bulletspeed);
+	SmallEnemy(Vector2u position, unsigned int range, float speed, float bulletspeed,bool moveleft);
 	~SmallEnemy();
 
 	void move(float frametime);
