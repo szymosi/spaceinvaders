@@ -2,31 +2,22 @@
 #include "MediumEnemy.h"
 
 
-MediumEnemy::MediumEnemy():MediumEnemy(Vector2u(0, 0))
-{
-}
 
-MediumEnemy::MediumEnemy(Vector2u position) : MediumEnemy(position,150,1)
-{
-}
 
-MediumEnemy::MediumEnemy(Vector2u position, float bulletspeed):MediumEnemy(position,bulletspeed,1)
-{
-}
 
-MediumEnemy::MediumEnemy(Vector2u position, bool shootingpatern):MediumEnemy(position,150,shootingpatern)
-{
-}
-
-MediumEnemy::MediumEnemy(Vector2u position, float bulletspeed, bool shootingpatern)
+MediumEnemy::MediumEnemy(Vector2u position, float bulletspeed, float radius, int speed, float timebetweenshoots, bool shootingpatern)
 {
 	this->startpoint = position;
 	this->bulletspeed = bulletspeed;
+	this->radius = radius;
+	this->speed = speed;
 	this->Xshootingpatern = shootingpatern;
-	this->position.x = cos(degree*Pi / 180.0)+startpoint.x;
-	this->position.y = sin(degree*Pi / 180.0)+startpoint.y;
+	this->timebetweenshoots = timebetweenshoots;
+	this->position.x = cos(degree*Pi / 180.0) + startpoint.x;
+	this->position.y = sin(degree*Pi / 180.0) + startpoint.y;
+	this->SetGraphic("MediumEnemy.png");
+	Clock.restart();
 }
-
 
 MediumEnemy::~MediumEnemy()
 {

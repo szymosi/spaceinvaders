@@ -2,38 +2,18 @@
 #include "SmallEnemy.h"
 
 
-SmallEnemy::SmallEnemy():SmallEnemy(Vector2u(0,0))
-{
-}
-
-SmallEnemy::SmallEnemy(Vector2u position) : SmallEnemy(position,200)
-{
-}
-
-SmallEnemy::SmallEnemy(Vector2u position, unsigned int range): SmallEnemy(position, range,150)
-{
-}
-
-SmallEnemy::SmallEnemy(Vector2u position, unsigned int range, float speed): SmallEnemy(position, range, speed, 150)
-{
-}
-
-SmallEnemy::SmallEnemy(Vector2u position, unsigned int range, float speed, float bulletspeed):SmallEnemy(position, range, speed, bulletspeed,0)
-{
-}
-
-SmallEnemy::SmallEnemy(Vector2u position, unsigned int range, float speed, float bulletspeed, bool moveleft)
+SmallEnemy::SmallEnemy(Vector2u position, unsigned int range, float speed, float timebetweenshoots, float bulletspeed, bool moveleft)
 {
 	this->position = position;
 	this->moveleft = moveleft;
-	this->startpoint = position;
 	this->range = range;
 	this->speed = speed;
 	this->bulletspeed = bulletspeed;
+	this->startpoint = position;
+	this->timebetweenshoots = timebetweenshoots;
 	this->SetGraphic("SmallEnemy.png");
 	Clock.restart();
 }
-
 
 SmallEnemy::~SmallEnemy()
 {

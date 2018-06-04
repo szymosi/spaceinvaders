@@ -4,7 +4,6 @@ class SmallEnemy :public Enemy
 {
 private:
 	bool moveleft;
-	float speed;
 	Vector2u startpoint;
 	unsigned int range;
 
@@ -14,12 +13,13 @@ private:
 	const float cos30deg = 0.86602540378;
 	
 public:
-	SmallEnemy();
-	SmallEnemy(Vector2u position);
-	SmallEnemy(Vector2u position, unsigned int range);
-	SmallEnemy(Vector2u position, unsigned int range,float speed);
-	SmallEnemy(Vector2u position, unsigned int range, float speed,float bulletspeed);
-	SmallEnemy(Vector2u position, unsigned int range, float speed, float bulletspeed,bool moveleft);
+	SmallEnemy() :SmallEnemy(Vector2u(0, 0)) {}
+	SmallEnemy(Vector2u position) : SmallEnemy(position, 200) {}
+	SmallEnemy(Vector2u position, unsigned int range) : SmallEnemy(position, range, 150) {}
+	SmallEnemy(Vector2u position, unsigned int range, float speed) : SmallEnemy(position, range, speed, 1.5) {}
+	SmallEnemy(Vector2u position, unsigned int range, float speed, float timebetweenshoots) : SmallEnemy(position, range, speed, timebetweenshoots, 200) {}
+	SmallEnemy(Vector2u position, unsigned int range, float speed,float timebetweenshoots, float bulletspeed) : SmallEnemy(position, range, speed, timebetweenshoots, bulletspeed,0) {}
+	SmallEnemy(Vector2u position, unsigned int range, float speed,float timebetweenshoots, float bulletspeed,bool moveleft);
 	~SmallEnemy();
 
 	void move(float frametime);

@@ -10,6 +10,8 @@ protected:
 	float bulletspeed;
 	Clock Clock;
 	std::vector<Bullet*> bullets;
+	float timebetweenshoots;
+	int speed;
 public:
 	Enemy();
 	~Enemy();

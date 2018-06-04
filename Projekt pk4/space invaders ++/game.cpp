@@ -52,7 +52,7 @@ void Game::movebullets()
 void Game::loop()
 {
 	Clock.restart();
-	enemy = new BigEnemy(player,Vector2u(500,300));
+	enemy = new MediumEnemy(Vector2u(500,300));
 	while (window->isOpen())
 	{
 		frametime = Clock.getElapsedTime().asSeconds();

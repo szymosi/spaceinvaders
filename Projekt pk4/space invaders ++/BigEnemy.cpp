@@ -4,17 +4,16 @@
 #include <math.h>
 
 
-BigEnemy::BigEnemy(MySprite*target):BigEnemy(target,Vector2u(0,0))
-{
-}
-
-BigEnemy::BigEnemy(MySprite * target, Vector2u position)
+BigEnemy::BigEnemy(MySprite * target, Vector2u position, float timebetweenshoots, float bulletspeed)
 {
 	this->target = target;
 	this->position = position;
-	this->bulletspeed = 200;
+	this->timebetweenshoots = timebetweenshoots;
+	this->bulletspeed = bulletspeed;
+	this->speed = 0;
+	this->SetGraphic("BigEnemy.png");
+	Clock.restart();
 }
-
 
 BigEnemy::~BigEnemy()
 {
@@ -23,8 +22,9 @@ BigEnemy::~BigEnemy()
 void BigEnemy::shoot()
 {
 	bullets.clear();
-	if (Clock.getElapsedTime().asSeconds() > timebetweenshoots)
+	if (this->Clock.getElapsedTime().asSeconds() > timebetweenshoots)
 	{
+		Clock.restart();
 		float degree = atan2((int)(target->GetPosition().y - this->position.y), (int)(target->GetPosition().x - this->position.x));//atan2(y,x);
 		int speedx = cos(degree)*bulletspeed;
 		int speedy = sin(degree)*bulletspeed;
