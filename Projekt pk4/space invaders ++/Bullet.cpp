@@ -37,6 +37,6 @@ void Bullet::move()
 }
 void Bullet::move(float frametime)
 {
-	position.x +=(int)(frametime* (float)speed.x);
-	position.y +=(int)(frametime* (float)speed.y);
+	position.x +=(int)(frametime* speed.x);//sprawdziæ (float)speed
+	position.y +=(int)(frametime* speed.y);
 }
