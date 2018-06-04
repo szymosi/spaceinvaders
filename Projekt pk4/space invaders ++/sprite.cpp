@@ -41,6 +41,11 @@ void MySprite::SetGraphic(std::string filename)
 	graphic.setOrigin(Vector2f(size.x / 2, size.y / 2));
 }
 
+Vector2u MySprite::GetPosition()
+{
+	return this->position;
+}
+
 bool MySprite::CheckIfOnScreen(Vector2u WindowSize,Vector2u position)
 {
 	if (position.x >= 0 && position.y > 0)

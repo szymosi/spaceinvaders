@@ -2,8 +2,6 @@
 #include "Enemy.h"
 class MediumEnemy:public Enemy
 {
-//	float speed;
-	float bulletspeed;
 	Vector2u startpoint;
 	float radius=200.0; //radius of circle that enemy moves around
 	int degree=0;	//etap of makeing of circle

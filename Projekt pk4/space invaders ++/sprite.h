@@ -22,6 +22,7 @@ private:
 
 	void SetTexture(std::string filename);
 	void SetGraphic(std::string filename);
+	Vector2u GetPosition();
 	bool CheckIfOnScreen(Vector2u WindowSize, Vector2u position);
 	void draw(RenderTarget& target, RenderStates states)const override;
 	void draw(RenderWindow*window, Vector2u position);
