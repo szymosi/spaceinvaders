@@ -20,9 +20,11 @@ MediumEnemy::MediumEnemy(Vector2u position, bool shootingpatern):MediumEnemy(pos
 
 MediumEnemy::MediumEnemy(Vector2u position, float bulletspeed, bool shootingpatern)
 {
-	this->position = position;
+	this->startpoint = position;
 	this->bulletspeed = bulletspeed;
 	this->Xshootingpatern = shootingpatern;
+	this->position.x = cos(degree*Pi / 180.0)+startpoint.x;
+	this->position.y = sin(degree*Pi / 180.0)+startpoint.y;
 }
 
 
@@ -32,6 +34,9 @@ MediumEnemy::~MediumEnemy()
 
 void MediumEnemy::move(float frametime)
 {
+	degree += frametime*speed;
+	this->position.x = cos(degree*Pi / 180.0)*radius+startpoint.x;
+	this->position.y = sin(degree*Pi / 180.0)*radius+startpoint.y;
 }
 
 void MediumEnemy::shoot()

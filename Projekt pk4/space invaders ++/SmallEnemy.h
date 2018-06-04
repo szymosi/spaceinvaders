@@ -11,8 +11,8 @@ private:
 
 	float timebetweenshoots = 1.5;
 
-	float sin30deg = 0.5;
-	float cos30deg = 0.86602540378;
+	const float sin30deg = 0.5;
+	const float cos30deg = 0.86602540378;
 	
 public:
 	SmallEnemy();
