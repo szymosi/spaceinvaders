@@ -1,10 +1,9 @@
 #include "stdafx.h"
 #include "BigEnemy.h"
-#include <iostream>
 #include <math.h>
 
 
-BigEnemy::BigEnemy(MySprite * target, Vector2u position, float timebetweenshoots, float bulletspeed)
+BigEnemy::BigEnemy(MySprite * target, Vector2u position, float timebetweenshoots, int bulletspeed)
 {
 	this->target = target;
 	this->position = position;
@@ -25,10 +24,11 @@ void BigEnemy::shoot()
 	if (this->Clock.getElapsedTime().asSeconds() > timebetweenshoots)
 	{
 		Clock.restart();
-		float degree = atan2((int)(target->GetPosition().y - this->position.y), (int)(target->GetPosition().x - this->position.x));//atan2(y,x);
-		int speedx = cos(degree)*bulletspeed;
-		int speedy = sin(degree)*bulletspeed;
-		bullets.push_back(new Bullet(this->position, Vector2i(speedx,speedy)));
+		double degree = atan2((int)(target->GetPosition().y - this->position.y), (int)(target->GetPosition().x - this->position.x));//atan2(y,x);
+		//int speedx = cos(degree)*bulletspeed;
+		//int speedy = sin(degree)*bulletspeed;
+		//bullets.push_back(new Bullet(this->position, Vector2i(speedx,speedy)));
+		bullets.push_back(new Bullet(this->position, bulletspeed, (float)degree));
 	}
 }
 

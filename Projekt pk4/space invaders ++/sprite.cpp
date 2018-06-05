@@ -39,7 +39,7 @@ void MySprite::SetGraphic(std::string filename)
 	texture.loadFromFile(filename);
 	size = texture.getSize();
 	graphic.setTexture(texture);
-	graphic.setOrigin(Vector2f(size.x / 2, size.y / 2));
+	graphic.setOrigin(Vector2f((float)size.x / 2, (float)size.y / 2));
 	graphic.setTextureRect(IntRect(0,0,size.x,size.y));
 }
 
@@ -71,4 +71,39 @@ void MySprite::draw(RenderWindow * window)
 {
 	graphic.setPosition((Vector2f)position);
 	window->draw(graphic);
+}
+
+bool MySprite::colides(MySprite * target)
+{
+	if (this->isRectangle == 1 && target->isRectangle == 1)
+		//return colisionRecRec(this,target);
+		return colisionRecRec(target, this);
+	if (this->isRectangle == 0 && target->isRectangle == 0)
+		return colisionCircleCircle(this,target);
+	if (this->isRectangle == 1 && target->isRectangle == 0)
+		return colisionRecCircle(this,target);
+	if (this->isRectangle == 0 && target->isRectangle == 1)
+		return colisionRecCircle(target,this);
+	return false;
+}
+
+bool MySprite::colisionRecRec(MySprite * Rec1, MySprite * Rec2)
+{
+	if ((Rec1->position.x - Rec2->position.x) < ((Rec1->size.x + Rec2->size.x)/2))
+		if ((Rec1->position.y - Rec2->position.y) <((Rec1->size.y + Rec2->size.y)/2))
+			return true;
+	return false;
+}
+
+bool MySprite::colisionCircleCircle(MySprite * Circle1, MySprite * Circle2)
+{
+	double distance = sqrt(pow(Circle1->position.x - Circle2->position.x, 2)+ pow(Circle1->position.y - Circle2->position.y, 2));
+	if (distance < Circle1->size.x + Circle2->size.x)
+		return true;
+	return false;
+}
+
+bool MySprite::colisionRecCircle(MySprite * Rec, MySprite * Circle)
+{
+	return false;
 }

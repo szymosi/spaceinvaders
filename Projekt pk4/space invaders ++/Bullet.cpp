@@ -10,6 +10,10 @@ Bullet::Bullet(Vector2u setposition):Bullet(setposition, Vector2i(0, -1000))
 {
 }
 
+Bullet::Bullet(Vector2u setposition, int setspeed, float degree):Bullet(setposition,Vector2i((int)(cos(degree)*setspeed), (int)(sin(degree)*setspeed)))
+{
+}
+
 Bullet::Bullet(Vector2u setposition, Vector2i setspeed) : Bullet(setposition, setspeed, 5)
 {
 }

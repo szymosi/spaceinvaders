@@ -2,6 +2,7 @@
 
 #include <SFML\Graphics.hpp>
 #include <string.h>
+#include <math.h>
 using namespace sf;
 class MySprite:public Drawable
 {
@@ -11,7 +12,11 @@ private:
 	Texture texture;
 	Sprite graphic;
 	Vector2u size;
+	bool isRectangle=1;
 //	Vector2u position;
+	bool colisionRecRec(MySprite*Rec1,MySprite*Rec2);
+	bool colisionCircleCircle(MySprite*Circle1, MySprite*Circle2);
+	bool colisionRecCircle(MySprite*Rec, MySprite*Circle);
 	public:
 	MySprite();
 	MySprite(std::string filename);
@@ -27,5 +32,6 @@ private:
 	void draw(RenderTarget& target, RenderStates states)const override;
 	void draw(RenderWindow*window, Vector2u position);
 	void draw(RenderWindow*window);
+	bool colides(MySprite*target);
 };
 

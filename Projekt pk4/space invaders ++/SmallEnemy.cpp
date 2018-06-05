@@ -2,7 +2,7 @@
 #include "SmallEnemy.h"
 
 
-SmallEnemy::SmallEnemy(Vector2u position, unsigned int range, float speed, float timebetweenshoots, float bulletspeed, bool moveleft)
+SmallEnemy::SmallEnemy(Vector2u position, unsigned int range, int speed, float timebetweenshoots, int bulletspeed, bool moveleft)
 {
 	this->position = position;
 	this->moveleft = moveleft;
@@ -57,7 +57,7 @@ void SmallEnemy::shoot()
 	{
 		Clock.restart();
 		bullets.push_back(new Bullet(Vector2u(this->position.x, this->position.y + (GetSize().y / 2)),Vector2i(0,bulletspeed)));
-		bullets.push_back(new Bullet(Vector2u(this->position.x, this->position.y + (GetSize().y / 2)), Vector2i(sin30deg*bulletspeed, cos30deg*bulletspeed)));
-		bullets.push_back(new Bullet(Vector2u(this->position.x, this->position.y + (GetSize().y / 2)), Vector2i(-(sin30deg*bulletspeed), cos30deg*bulletspeed)));
+		bullets.push_back(new Bullet(Vector2u(this->position.x, this->position.y + (GetSize().y / 2)), Vector2i((int)(sin30deg*bulletspeed), (int)(cos30deg*bulletspeed))));
+		bullets.push_back(new Bullet(Vector2u(this->position.x, this->position.y + (GetSize().y / 2)), Vector2i((int)-(sin30deg*bulletspeed), (int)(cos30deg*bulletspeed))));
 	}
 }

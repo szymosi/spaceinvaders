@@ -53,6 +53,7 @@ void Game::loop()
 {
 	Clock.restart();
 	enemy = new BigEnemy(player,Vector2u(500,300));
+	//enemy = new MediumEnemy(Vector2u(500, 300));
 	while (window->isOpen())
 	{
 		frametime = Clock.getElapsedTime().asSeconds();
@@ -71,12 +72,21 @@ void Game::loop()
 		}
 		player->SetPosition(Mouse::getPosition(*window),window->getSize());
 
-		//
+		//sparwdzanie enemy
 		enemy->move(frametime);
-		enemy->shoot();
+//		enemy->shoot();
 		if (enemy->getbullets().size() > 0)
 			bullets.insert(this->bullets.end(), enemy->getbullets().begin(), enemy->getbullets().end());
 		enemy->draw(window);
+		//
+
+		//sprawdzanie kolizji
+		for(auto i =0;i<bullets.size();i++)
+			if (enemy->colides(bullets[i]))
+			{
+				delete bullets[i];
+				bullets.erase(bullets.begin() + i);
+			}
 		//
 
 		movebullets();

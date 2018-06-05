@@ -7,7 +7,7 @@ class Enemy :public MySprite
 private:
 	int hp;
 protected:
-	float bulletspeed;
+	int bulletspeed;
 	Clock Clock;
 	std::vector<Bullet*> bullets;
 	float timebetweenshoots;
