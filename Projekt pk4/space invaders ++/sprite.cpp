@@ -36,9 +36,11 @@ void MySprite::SetTexture(std::string filename)
 
 void MySprite::SetGraphic(std::string filename)
 {
-	SetTexture(filename);
+	texture.loadFromFile(filename);
+	size = texture.getSize();
 	graphic.setTexture(texture);
 	graphic.setOrigin(Vector2f(size.x / 2, size.y / 2));
+	graphic.setTextureRect(IntRect(0,0,size.x,size.y));
 }
 
 Vector2u MySprite::GetPosition()
