@@ -14,7 +14,7 @@ private:
 	Vector2u size;
 	bool isRectangle=1;
 //	Vector2u position;
-	bool colisionRecRec(MySprite*Rec1,MySprite*Rec2);
+	//bool colisionRecRec(MySprite*Rec1,MySprite*Rec2);
 	bool colisionCircleCircle(MySprite*Circle1, MySprite*Circle2);
 	bool colisionRecCircle(MySprite*Rec, MySprite*Circle);
 	public:

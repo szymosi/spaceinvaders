@@ -77,7 +77,8 @@ bool MySprite::colides(MySprite * target)
 {
 	if (this->isRectangle == 1 && target->isRectangle == 1)
 		//return colisionRecRec(this,target);
-		return colisionRecRec(target, this);
+		//return colisionRecRec(target, this);
+		return this->graphic.getGlobalBounds().intersects(target->graphic.getGlobalBounds());
 	if (this->isRectangle == 0 && target->isRectangle == 0)
 		return colisionCircleCircle(this,target);
 	if (this->isRectangle == 1 && target->isRectangle == 0)
@@ -87,13 +88,13 @@ bool MySprite::colides(MySprite * target)
 	return false;
 }
 
-bool MySprite::colisionRecRec(MySprite * Rec1, MySprite * Rec2)
-{
-	if ((Rec1->position.x - Rec2->position.x) < ((Rec1->size.x + Rec2->size.x)/2))
-		if ((Rec1->position.y - Rec2->position.y) <((Rec1->size.y + Rec2->size.y)/2))
-			return true;
-	return false;
-}
+//bool MySprite::colisionRecRec(MySprite * Rec1, MySprite * Rec2)
+//{
+//	if ((Rec1->position.x - Rec2->position.x) < ((Rec1->size.x + Rec2->size.x)/2))
+//		if ((Rec1->position.y - Rec2->position.y) <((Rec1->size.y + Rec2->size.y)/2))
+//			return true;
+//	return false;
+//}
 
 bool MySprite::colisionCircleCircle(MySprite * Circle1, MySprite * Circle2)
 {
