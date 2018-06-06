@@ -52,7 +52,6 @@ void SmallEnemy::move(float frametime)
 
 void SmallEnemy::shoot()
 {
-	bullets.clear();
 	if (Clock.getElapsedTime().asSeconds() > timebetweenshoots)
 	{
 		Clock.restart();

@@ -32,7 +32,6 @@ void MediumEnemy::move(float frametime)
 
 void MediumEnemy::shoot()
 {
-	bullets.clear();
 	if (Clock.getElapsedTime().asSeconds() > timebetweenshoots)
 	{
 		Clock.restart();

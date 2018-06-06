@@ -20,7 +20,6 @@ BigEnemy::~BigEnemy()
 
 void BigEnemy::shoot()
 {
-	bullets.clear();
 	if (this->Clock.getElapsedTime().asSeconds() > timebetweenshoots)
 	{
 		Clock.restart();

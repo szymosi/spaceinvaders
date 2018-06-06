@@ -17,7 +17,9 @@ public:
 	~Enemy();
 	Vector2u getposition();
 	int gethp();
+	void sethp(int hp);
 	const std::vector<Bullet*> & getbullets();
+	bool isAlive();
 
 	virtual void move(float frametime) {};
 	virtual void shoot() {};

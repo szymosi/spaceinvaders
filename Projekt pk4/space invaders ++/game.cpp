@@ -74,9 +74,7 @@ void Game::loop()
 
 		//sparwdzanie enemy
 		enemy->move(frametime);
-//		enemy->shoot();
-		if (enemy->getbullets().size() > 0)
-			bullets.insert(this->bullets.end(), enemy->getbullets().begin(), enemy->getbullets().end());
+		enemy->shoot();
 		enemy->draw(window);
 		//
 
@@ -89,6 +87,10 @@ void Game::loop()
 			}
 		//
 
+		//sprawdzanie wczytywania leveli
+		Level level(player);
+		level.loadlevel();
+		//
 		movebullets();
 		draweverything();
 		window->display();
