@@ -13,7 +13,7 @@ private:
 	int levelId;
 	MySprite*target;
 public:
-	Level() :Level(0) {}
+	Level() :Level(1) {}
 	Level(int levelId) :Level(NULL, levelId) {}
 	Level(MySprite*traget) :Level(target, 1) {}
 	Level(MySprite*traget, int levelId);
@@ -24,5 +24,6 @@ public:
 	void addenemy(Enemy* enemy);
 	void loadlevel();
 	void createenemy(std::string enemyname, Vector2u position);
+	Level& operator++();
 };
 

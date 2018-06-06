@@ -20,6 +20,7 @@ public:
 	void sethp(int hp);
 	const std::vector<Bullet*> & getbullets();
 	bool isAlive();
+	void removebullet(int i);
 
 	virtual void move(float frametime) {};
 	virtual void shoot() {};

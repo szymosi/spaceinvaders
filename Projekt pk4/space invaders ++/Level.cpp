@@ -62,3 +62,10 @@ void Level::createenemy(std::string enemyname, Vector2u position)
 			//else
 				//dodac wyj¹tek
 }
+
+Level & Level::operator++()
+{
+	this->levelId++;
+	return *this;
+}
+

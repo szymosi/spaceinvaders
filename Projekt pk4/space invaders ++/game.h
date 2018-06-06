@@ -13,12 +13,12 @@ class Game
 {
 private:
 	unsigned int score;
-	unsigned int level;
+//	unsigned int levelId;
 	float frametime;
 
 	Player*player;
+	Level*level;
 	std::vector<Bullet*> bullets;
-	Enemy*enemy;
 
 	Event event;
 	RenderWindow*window;
@@ -33,5 +33,7 @@ public:
 	void movebullets();
 	void loop();
 	void draweverything();
+	void changelevel();
+	void enemiesaction();
 };
 

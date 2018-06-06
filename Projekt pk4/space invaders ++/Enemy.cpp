@@ -41,3 +41,8 @@ bool Enemy::isAlive()
 	else
 		return true;
 }
+
+void Enemy::removebullet(int i)
+{
+	this->bullets.erase(bullets.begin() + i);
+}

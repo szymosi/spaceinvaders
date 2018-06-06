@@ -2,15 +2,15 @@
 #include "game.h"
 
 
-Game::Game() :Game(0, 0)
+Game::Game() :Game(0, 1)
 {
 }
 
 Game::Game(int setscore, int setlevel)
 {
 	score = setscore;
-	level = setlevel;
 	player = new Player();
+	level = new Level(player, setlevel);
 	window = new RenderWindow(VideoMode{ width, height }, "testy", Style::Default);
 	window->setFramerateLimit(60);
 	window->setMouseCursorVisible(false);
@@ -47,13 +47,26 @@ void Game::movebullets()
 			bullets.erase(bullets.begin()+i);
 		}
 	}
+	//moving enemies bullets
+	for (auto i = 0; i < level->getenemies().size(); i++)
+	{
+		for (auto a = 0; a < level->getenemies()[i]->getbullets().size(); a++)
+		{
+			Bullet*tmpbullet = level->getenemies()[i]->getbullets()[a];
+			tmpbullet->move(frametime);
+			if (tmpbullet->CheckIfOnScreen(window->getSize(), tmpbullet->getposition()))
+			{
+				delete tmpbullet;
+				level->getenemies()[i]->removebullet(a);
+			}
+		}
+	}
 }
 
 void Game::loop()
 {
+	level->loadlevel();
 	Clock.restart();
-	enemy = new BigEnemy(player,Vector2u(500,300));
-	//enemy = new MediumEnemy(Vector2u(500, 300));
 	while (window->isOpen())
 	{
 		frametime = Clock.getElapsedTime().asSeconds();
@@ -72,25 +85,15 @@ void Game::loop()
 		}
 		player->SetPosition(Mouse::getPosition(*window),window->getSize());
 
-		//sparwdzanie enemy
-		enemy->move(frametime);
-		enemy->shoot();
-		enemy->draw(window);
 		//
-
-		//sprawdzanie kolizji
-		for(auto i =0;i<bullets.size();i++)
-			if (enemy->colides(bullets[i]))
-			{
-				delete bullets[i];
-				bullets.erase(bullets.begin() + i);
-			}
+//		Enemy*enemy = new SmallEnemy(Vector2u(800, 200));
+//		enemy->move(frametime);
+//		enemy->shoot();
+//		enemy->draw(window);
+//		for (int i = 0; i < enemy->getbullets().size(); i++)
+//			enemy->getbullets()[i]->draw(window);
 		//
-
-		//sprawdzanie wczytywania leveli
-		Level level(player);
-		level.loadlevel();
-		//
+		enemiesaction();
 		movebullets();
 		draweverything();
 		window->display();
@@ -102,10 +105,38 @@ void Game::loop()
 
 void Game::draweverything()
 {
-	player->draw(window);
+	// draw players bullets
 	for (auto i = 0; i < bullets.size(); i++)
 	{
 		bullets[i]->draw(window);
-//		bullets[i]->move();
+	}
+	//draw enemies bullets
+	for (auto i = 0; i < level->getenemies().size(); i++)
+	{
+		for (auto a = 0; a < level->getenemies()[i]->getbullets().size(); a++)
+		{
+			level->getenemies()[i]->getbullets()[a]->draw(window);
+		}
+		level->getenemies()[i]->draw(window);//draw enemies
+	}
+	player->draw(window);//draw player
+	changelevel();
+}
+
+void Game::changelevel()
+{
+	if (level->checkiflevelpassed())
+	{
+		level++;
+		level->loadlevel();
+	}
+}
+
+void Game::enemiesaction()
+{
+	for (auto i = 0; i < level->getenemies().size(); i++)
+	{
+		level->getenemies()[i]->move(frametime);
+		level->getenemies()[i]->shoot();
 	}
 }
