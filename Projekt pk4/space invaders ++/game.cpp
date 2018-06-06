@@ -56,7 +56,6 @@ void Game::movebullets()
 			tmpbullet->move(frametime);
 			if (!tmpbullet->CheckIfOnScreen(window->getSize(), tmpbullet->getposition()))
 			{
-				delete tmpbullet;
 				level->getenemies()[i]->removebullet(a);
 			}
 		}
@@ -84,15 +83,6 @@ void Game::loop()
 				bullets.push_back(tmp);
 		}
 		player->SetPosition(Mouse::getPosition(*window),window->getSize());
-
-		//
-//		Enemy*enemy = new SmallEnemy(Vector2u(800, 200));
-//		enemy->move(frametime);
-//		enemy->shoot();
-//		enemy->draw(window);
-//		for (int i = 0; i < enemy->getbullets().size(); i++)
-//			enemy->getbullets()[i]->draw(window);
-		//
 		enemiesaction();
 		movebullets();
 		draweverything();
@@ -113,11 +103,13 @@ void Game::draweverything()
 	//draw enemies bullets
 	for (auto i = 0; i < level->getenemies().size(); i++)
 	{
-		level->getenemies()[i]->draw(window);//draw enemies
 		for (auto a = 0; a < level->getenemies()[i]->getbullets().size(); a++)
 		{
 			level->getenemies()[i]->getbullets()[a]->draw(window);
+			if (player->colides(level->getenemies()[i]->getbullets()[a]))
+				getchar();
 		}
+		level->getenemies()[i]->draw(window);//draw enemies
 		
 	}
 	player->draw(window);//draw player
