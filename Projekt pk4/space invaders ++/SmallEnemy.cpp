@@ -55,8 +55,8 @@ void SmallEnemy::shoot()
 	if (Clock.getElapsedTime().asSeconds() > timebetweenshoots)
 	{
 		Clock.restart();
-		bullets.push_back(new Bullet(Vector2u(this->position.x, this->position.y + (GetSize().y / 2)),Vector2i(0,bulletspeed)));
-		bullets.push_back(new Bullet(Vector2u(this->position.x, this->position.y + (GetSize().y / 2)), Vector2i((int)(sin30deg*bulletspeed), (int)(cos30deg*bulletspeed))));
-		bullets.push_back(new Bullet(Vector2u(this->position.x, this->position.y + (GetSize().y / 2)), Vector2i((int)-(sin30deg*bulletspeed), (int)(cos30deg*bulletspeed))));
+		bullets.push_back(new Bullet("SmallBullet",Vector2u(this->position.x, this->position.y + (GetSize().y / 2)),0));
+		bullets.push_back(new Bullet("SmallBullet",Vector2u(this->position.x, this->position.y + (GetSize().y / 2)), 30));
+		bullets.push_back(new Bullet("SmallBullet",Vector2u(this->position.x, this->position.y + (GetSize().y / 2)), -30));
 	}
 }

@@ -106,8 +106,6 @@ void Game::draweverything()
 		for (auto a = 0; a < level->getenemies()[i]->getbullets().size(); a++)
 		{
 			level->getenemies()[i]->getbullets()[a]->draw(window);
-			if (player->colides(level->getenemies()[i]->getbullets()[a]))
-				getchar();
 		}
 		level->getenemies()[i]->draw(window);//draw enemies
 		

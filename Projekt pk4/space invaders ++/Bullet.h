@@ -8,15 +8,17 @@ class Bullet : public MySprite
 private:
 //	Vector2i position;
 	Vector2i speed;
-	int radius;
+	int damage;
 	
 
 public:
-	Bullet();
-	Bullet(Vector2u position);
-	Bullet(Vector2u setposition, int setspeed, float degree);
-	Bullet(Vector2u setposition, Vector2i setspeed);
-	Bullet(Vector2u setposition, Vector2i setspeed, int setradius);
+	Bullet() :Bullet(Vector2u(0, 0)) {}
+	Bullet(Vector2u position) :Bullet(position, 1000, 10) {}
+	Bullet(Vector2u setposition, int setspeed, int damage) :Bullet(setposition, setspeed, 0.0, damage) {}
+	Bullet(Vector2u setposition, int setspeed, float degree, int damage) :Bullet(setposition, Vector2i((int)(cos(degree)*setspeed), (int)(sin(degree)*setspeed)), damage) {}
+	Bullet(std::string bullettype, Vector2u position, float degree);
+	Bullet(Vector2u setposition, Vector2i setspeed, int damage) :Bullet("Bullet", setposition, setspeed, damage) {}
+	Bullet(std::string bullettype, Vector2u setposition, Vector2i setspeed, int damage);
 	~Bullet();
 
 	Vector2u getposition();

@@ -2,28 +2,41 @@
 #include "Bullet.h"
 
 
-Bullet::Bullet():Bullet(Vector2u(0,0))
+Bullet::Bullet(std::string bullettype, Vector2u position, float degree)
 {
+	int setspeed;
+	int damage;
+	if (bullettype == "SmallBullet")
+	{
+		setspeed = 200;
+		damage = 50;
+	}
+	else
+		if (bullettype == "MediumBullet")
+		{
+			setspeed = 150;
+			damage = 100;
+		}
+		else
+			if (bullettype == "BigBullet")
+			{
+				setspeed = 200;
+				damage = 150;
+			}
+			else
+			{
+				bullettype == "Bullet";
+				setspeed = 1000;
+				damage = 50;
+			}
+	Bullet(bullettype, position, Vector2i((int)(cos(degree)*setspeed), (int)(sin(degree)*setspeed)), damage);
 }
 
-Bullet::Bullet(Vector2u setposition):Bullet(setposition, Vector2i(0, -1000))
+Bullet::Bullet(std::string bullettype, Vector2u setposition, Vector2i setspeed, int damage):MySprite(bullettype+".png",setposition)
 {
+	this->speed = setspeed;
+	this->damage = damage;
 }
-
-Bullet::Bullet(Vector2u setposition, int setspeed, float degree):Bullet(setposition,Vector2i((int)(cos(degree)*setspeed), (int)(sin(degree)*setspeed)))
-{
-}
-
-Bullet::Bullet(Vector2u setposition, Vector2i setspeed) : Bullet(setposition, setspeed, 5)
-{
-}
-
-Bullet::Bullet(Vector2u setposition, Vector2i setspeed, int setradius) : MySprite("Bullet.png",setposition)
-{
-	speed = setspeed;
-	radius = setradius;
-}
-
 
 Bullet::~Bullet()
 {
