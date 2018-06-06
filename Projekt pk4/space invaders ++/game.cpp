@@ -54,7 +54,7 @@ void Game::movebullets()
 		{
 			Bullet*tmpbullet = level->getenemies()[i]->getbullets()[a];
 			tmpbullet->move(frametime);
-			if (tmpbullet->CheckIfOnScreen(window->getSize(), tmpbullet->getposition()))
+			if (!tmpbullet->CheckIfOnScreen(window->getSize(), tmpbullet->getposition()))
 			{
 				delete tmpbullet;
 				level->getenemies()[i]->removebullet(a);
@@ -113,11 +113,12 @@ void Game::draweverything()
 	//draw enemies bullets
 	for (auto i = 0; i < level->getenemies().size(); i++)
 	{
+		level->getenemies()[i]->draw(window);//draw enemies
 		for (auto a = 0; a < level->getenemies()[i]->getbullets().size(); a++)
 		{
 			level->getenemies()[i]->getbullets()[a]->draw(window);
 		}
-		level->getenemies()[i]->draw(window);//draw enemies
+		
 	}
 	player->draw(window);//draw player
 	changelevel();

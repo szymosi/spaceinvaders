@@ -1,6 +1,7 @@
 #pragma once
 
 #include "sprite.h"
+#include <math.h>
 
 class Bullet : public MySprite
 {

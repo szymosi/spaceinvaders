@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Level.h"
 
-Level::Level(MySprite * traget, int levelId)
+Level::Level(MySprite * target, int levelId)
 {
 	this->target = target;
 	this->levelId = levelId;

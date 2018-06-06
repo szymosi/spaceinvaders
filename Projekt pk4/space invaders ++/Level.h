@@ -15,8 +15,8 @@ private:
 public:
 	Level() :Level(1) {}
 	Level(int levelId) :Level(NULL, levelId) {}
-	Level(MySprite*traget) :Level(target, 1) {}
-	Level(MySprite*traget, int levelId);
+	Level(MySprite*target) :Level(target, 1) {}
+	Level(MySprite*target, int levelId);
 	~Level();
 
 	const std::vector<Enemy*> & getenemies();
