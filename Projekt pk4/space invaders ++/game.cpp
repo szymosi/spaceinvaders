@@ -86,8 +86,9 @@ void Game::loop()
 		enemiesaction();
 		movebullets();
 		draweverything();
+		colliesions();
+		changelevel();
 		window->display();
-		//std::cout << frametime << std::endl;
 	}
 }
 
@@ -111,7 +112,6 @@ void Game::draweverything()
 		
 	}
 	player->draw(window);//draw player
-	changelevel();
 }
 
 void Game::changelevel()
@@ -129,5 +129,33 @@ void Game::enemiesaction()
 	{
 		level->getenemies()[i]->move(frametime);
 		level->getenemies()[i]->shoot();
+	}
+}
+
+void Game::colliesions()
+{
+	for (auto i = 0; i < level->getenemies().size(); i++)
+	{
+		for (auto a = 0; a < level->getenemies()[i]->getbullets().size(); a++)
+		{
+			if (player->colides(level->getenemies()[i]->getbullets()[a]))
+			{
+				player->changeHP(-(level->getenemies()[i]->getbullets()[a]->getdmg()));//colisions of player and enemies bullets
+				level->getenemies()[i]->removebullet(a);
+			}
+		}
+		if (player->colides(level->getenemies()[i]))
+		{
+			player->changeHP(-(player->GetHP() / 2));//collisions of player with enemies
+		}
+		for (auto a = 0; a < bullets.size(); a++)
+		{
+			if (level->getenemies()[i]->colides(bullets[a]))
+			{
+				level->getenemies()[i]->chengehp(-bullets[a]->getdmg());
+				delete bullets[a];
+				bullets.erase(bullets.begin() + a);
+			}
+		}
 	}
 }

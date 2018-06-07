@@ -3,7 +3,7 @@
 
 
 
-Player::Player():Player(Vector2u(640,360),100)
+Player::Player():Player(Vector2u(640,360),1000)
 {
 }
 
@@ -49,6 +49,11 @@ sf::Vector2u Player::GetPosition()
 int Player::GetHP()
 {
 	return hp;
+}
+
+void Player::changeHP(int diffrence)
+{
+	this->hp += diffrence;
 }
 
 Bullet* Player::Shoot()

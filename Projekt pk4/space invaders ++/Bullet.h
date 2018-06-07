@@ -22,6 +22,7 @@ public:
 	~Bullet();
 
 	Vector2u getposition();
+	int getdmg();
 
 	void move();
 	void move(float frametime);

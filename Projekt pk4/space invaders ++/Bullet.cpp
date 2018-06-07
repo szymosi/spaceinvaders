@@ -47,6 +47,11 @@ Vector2u Bullet::getposition()
 	return position;
 }
 
+int Bullet::getdmg()
+{
+	return this->damage;
+}
+
 void Bullet::move()
 {
 	position.x += speed.x;

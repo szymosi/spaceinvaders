@@ -35,5 +35,6 @@ public:
 	void draweverything();
 	void changelevel();
 	void enemiesaction();
+	void colliesions();
 };
 

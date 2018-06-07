@@ -8,6 +8,7 @@ private:
 	int hp;
 protected:
 	int bulletspeed;
+	int	bulletdmg;
 	Clock Clock;
 	std::vector<Bullet*> bullets;
 	float timebetweenshoots;
@@ -18,6 +19,7 @@ public:
 	Vector2u getposition();
 	int gethp();
 	void sethp(int hp);
+	void chengehp(int diffrence);
 	const std::vector<Bullet*> & getbullets();
 	bool isAlive();
 	void removebullet(int i);

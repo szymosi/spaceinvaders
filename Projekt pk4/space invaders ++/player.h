@@ -2,7 +2,6 @@
 
 #include "sprite.h"
 #include "Bullet.h"
-#include <iostream>
 
 class Player : public MySprite
 {
@@ -19,6 +18,7 @@ public:
 	void SetHP(int newhp);
 	sf::Vector2u GetPosition();
 	int GetHP();
+	void changeHP(int diffrence);
 	Bullet* Shoot();
 //	void drawplayer(RenderWindow*window);
 };
