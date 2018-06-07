@@ -24,6 +24,7 @@ public:
 	void addenemy(Enemy* enemy);
 	void loadlevel();
 	void createenemy(std::string enemyname, Vector2u position);
+	void removeenemy(int i);
 	Level& operator++();
 };
 

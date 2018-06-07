@@ -87,7 +87,7 @@ void Game::loop()
 		movebullets();
 		draweverything();
 		colliesions();
-		changelevel();
+		levelhandling();
 		window->display();
 	}
 }
@@ -114,8 +114,15 @@ void Game::draweverything()
 	player->draw(window);//draw player
 }
 
-void Game::changelevel()
+void Game::levelhandling()
 {
+	for (unsigned int i = 0; i < level->getenemies().size(); i++)
+	{
+		if (level->getenemies()[i]->gethp() <= 0)
+		{
+			level->removeenemy(i);
+		}
+	}
 	if (level->checkiflevelpassed())
 	{
 		level++;

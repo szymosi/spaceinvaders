@@ -63,6 +63,15 @@ void Level::createenemy(std::string enemyname, Vector2u position)
 				//dodac wyj¹tek
 }
 
+void Level::removeenemy(int i)
+{
+	if (i < enemies.size() && i >= 0)
+	{
+		delete enemies[i];
+		this->enemies.erase(enemies.begin() + i);
+	}
+}
+
 Level & Level::operator++()
 {
 	this->levelId++;

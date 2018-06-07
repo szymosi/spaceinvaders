@@ -5,7 +5,7 @@
 class Enemy :public MySprite
 {
 private:
-	int hp;
+	int hp = 100;
 protected:
 	int speed;
 	int bulletspeed;

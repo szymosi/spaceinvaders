@@ -13,7 +13,6 @@ class Game
 {
 private:
 	unsigned int score;
-//	unsigned int levelId;
 	float frametime;
 
 	Player*player;
@@ -33,7 +32,7 @@ public:
 	void movebullets();
 	void loop();
 	void draweverything();
-	void changelevel();
+	void levelhandling();
 	void enemiesaction();
 	void colliesions();
 };
