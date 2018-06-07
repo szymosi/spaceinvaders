@@ -21,7 +21,7 @@ Game::~Game()
 {
 	delete player;
 	delete window;
-	for (auto i = 0; i < bullets.size(); i++)
+	for (unsigned int i = 0; i < bullets.size(); i++)
 		delete bullets[i];
 }
 
@@ -38,7 +38,7 @@ float Game::getframetime()
 
 void Game::movebullets()
 {
-	for (auto i = 0; i < bullets.size(); i++)
+	for (unsigned int i = 0; i < bullets.size(); i++)
 	{
 		bullets[i]->move(frametime);
 		if (!bullets[i]->CheckIfOnScreen(window->getSize(), bullets[i]->getposition()))
@@ -48,9 +48,9 @@ void Game::movebullets()
 		}
 	}
 	//moving enemies bullets
-	for (auto i = 0; i < level->getenemies().size(); i++)
+	for (unsigned int i = 0; i < level->getenemies().size(); i++)
 	{
-		for (auto a = 0; a < level->getenemies()[i]->getbullets().size(); a++)
+		for (unsigned int a = 0; a < level->getenemies()[i]->getbullets().size(); a++)
 		{
 			Bullet*tmpbullet = level->getenemies()[i]->getbullets()[a];
 			tmpbullet->move(frametime);
@@ -97,14 +97,14 @@ void Game::loop()
 void Game::draweverything()
 {
 	// draw players bullets
-	for (auto i = 0; i < bullets.size(); i++)
+	for (unsigned int i = 0; i < bullets.size(); i++)
 	{
 		bullets[i]->draw(window);
 	}
 	//draw enemies bullets
-	for (auto i = 0; i < level->getenemies().size(); i++)
+	for (unsigned int i = 0; i < level->getenemies().size(); i++)
 	{
-		for (auto a = 0; a < level->getenemies()[i]->getbullets().size(); a++)
+		for (unsigned int a = 0; a < level->getenemies()[i]->getbullets().size(); a++)
 		{
 			level->getenemies()[i]->getbullets()[a]->draw(window);
 		}
@@ -125,7 +125,7 @@ void Game::changelevel()
 
 void Game::enemiesaction()
 {
-	for (auto i = 0; i < level->getenemies().size(); i++)
+	for (unsigned int i = 0; i < level->getenemies().size(); i++)
 	{
 		level->getenemies()[i]->move(frametime);
 		level->getenemies()[i]->shoot();
@@ -134,9 +134,9 @@ void Game::enemiesaction()
 
 void Game::colliesions()
 {
-	for (auto i = 0; i < level->getenemies().size(); i++)
+	for (unsigned int i = 0; i < level->getenemies().size(); i++)
 	{
-		for (auto a = 0; a < level->getenemies()[i]->getbullets().size(); a++)
+		for (unsigned int a = 0; a < level->getenemies()[i]->getbullets().size(); a++)
 		{
 			if (player->colides(level->getenemies()[i]->getbullets()[a]))
 			{
@@ -148,7 +148,7 @@ void Game::colliesions()
 		{
 			player->changeHP(-(player->GetHP() / 2));//collisions of player with enemies
 		}
-		for (auto a = 0; a < bullets.size(); a++)
+		for (unsigned int a = 0; a < bullets.size(); a++)
 		{
 			if (level->getenemies()[i]->colides(bullets[a]))
 			{

@@ -28,9 +28,9 @@ void Player::SetPosition(Vector2i newposition,Vector2u windowsize)
 		newposition.x = 0;
 	if (newposition.y <= 0)
 		newposition.y = 0;
-	if (newposition.x >= windowsize.x)
+	if ((unsigned)newposition.x >= windowsize.x)
 		newposition.x = windowsize.x-1;
-	if (newposition.y >= windowsize.y)
+	if ((unsigned)newposition.y >= windowsize.y)
 		newposition.y = windowsize.y-1;
 
 	position =(Vector2u)newposition;

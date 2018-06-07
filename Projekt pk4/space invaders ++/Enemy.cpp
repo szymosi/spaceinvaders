@@ -9,7 +9,7 @@ Enemy::Enemy()
 
 Enemy::~Enemy()
 {
-	for (auto i = 0; i < this->bullets.size(); i++)
+	for (unsigned int i = 0; i < this->bullets.size(); i++)
 		delete bullets[i];
 	bullets.clear();
 }

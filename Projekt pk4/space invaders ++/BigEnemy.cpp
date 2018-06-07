@@ -24,10 +24,9 @@ void BigEnemy::shoot()
 	{
 		Clock.restart();
 		double degree = atan2((int)(target->GetPosition().y - this->position.y), (int)(target->GetPosition().x - this->position.x));//atan2(y,x);
-		int speedx = cos(degree)*bulletspeed;
-		int speedy = sin(degree)*bulletspeed;
+		int speedx = (int)(cos(degree)*bulletspeed);
+		int speedy = (int)(sin(degree)*bulletspeed);
 		bullets.push_back(new Bullet("BigBullet",this->position, Vector2i(speedx,speedy),200));
-		//bullets.push_back(new Bullet(,this->position, bulletspeed, (float)degree));
 	}
 }
 
