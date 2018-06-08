@@ -15,6 +15,7 @@ Game::Game(int setscore, int setlevel, unsigned int numberoflevels)
 	window = new RenderWindow(VideoMode{ width, height }, "testy", Style::Default);
 	window->setFramerateLimit(60);
 	window->setMouseCursorVisible(false);
+	UI = new UserInterface();
 	gamepassed = 0;
 }
 
@@ -80,6 +81,7 @@ void Game::loop()
 	Clock.restart();
 	while (window->isOpen() && error==0 && player->isAlive() && !gamepassed)
 	{
+		std::cout << player->GetHP() << std::endl;
 		frametime = Clock.getElapsedTime().asSeconds();
 		Clock.restart();
 		window->clear(Color::Black);
@@ -114,6 +116,10 @@ void Game::loop()
 
 void Game::draweverything()
 {
+	//draw UI
+	UI->Getbackground()->draw(window);
+	UI->GetHpBar()->draw(window);
+	UI->GetHpBackground()->draw(window);
 	// draw players bullets
 	for (unsigned int i = 0; i < bullets.size(); i++)
 	{
@@ -143,7 +149,7 @@ void Game::levelhandling()
 	}
 	if (level->checkiflevelpassed())
 	{
-		if (level->getlevelid() < numberoflevels)
+		if ((unsigned)level->getlevelid() < numberoflevels)
 		{
 			try
 			{

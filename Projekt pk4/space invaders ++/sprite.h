@@ -4,7 +4,7 @@
 #include <string.h>
 #include <math.h>
 using namespace sf;
-class MySprite:public Drawable
+class MySprite
 {
 protected:
 	Vector2u position;

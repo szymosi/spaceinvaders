@@ -3,6 +3,7 @@
 #include "player.h"
 #include "vector"
 #include "Level.h"
+#include "UserInterface.h"
 #include <SFML\Graphics.hpp>
 #include <iostream>
 #include <Windows.h>
@@ -20,6 +21,7 @@ private:
 
 	Player*player;
 	Level*level;
+	UserInterface*UI;
 	std::vector<Bullet*> bullets; //players bullets
 
 	Event event; //SFML events

@@ -10,7 +10,7 @@ Level::Level(MySprite * target, int levelId)
 
 Level::~Level()
 {
-	for (int i = 0; i < enemies.size(); i++)
+	for (unsigned int i = 0; i < enemies.size(); i++)
 		delete enemies[i];
 	enemies.clear();
 }
@@ -106,7 +106,7 @@ void Level::createenemy(std::string enemyname, Vector2u position, int hp, int da
 
 void Level::removeenemy(int i)
 {
-	if (i < enemies.size() && i >= 0)
+	if ((unsigned)i < enemies.size() && i >= 0)
 	{
 		delete enemies[i];
 		this->enemies.erase(enemies.begin() + i);
