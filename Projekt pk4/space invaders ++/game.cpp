@@ -21,6 +21,7 @@ Game::~Game()
 {
 	delete player;
 	delete window;
+	delete level;
 	for (unsigned int i = 0; i < bullets.size(); i++)
 		delete bullets[i];
 }
@@ -64,9 +65,17 @@ void Game::movebullets()
 
 void Game::loop()
 {
-	level->loadlevel();
+	try
+	{
+		level->loadlevel();
+	}
+	catch (std::string exception)
+	{
+		std::cout << exception << std::endl;
+		error = 1;
+	}
 	Clock.restart();
-	while (window->isOpen())
+	while (window->isOpen() && error==0 && player->isAlive())
 	{
 		frametime = Clock.getElapsedTime().asSeconds();
 		Clock.restart();
@@ -90,6 +99,10 @@ void Game::loop()
 		levelhandling();
 		window->display();
 	}
+	if(error==1)
+		messagebox();
+	if (!player->isAlive())
+		gameover();
 }
 
 
@@ -132,6 +145,7 @@ void Game::levelhandling()
 		catch (std::string exception)
 		{
 			std::cout << exception << std::endl;
+			error = 1;
 		}
 	}
 }
@@ -171,4 +185,18 @@ void Game::colliesions()
 			}
 		}
 	}
+}
+
+void Game::messagebox()
+{
+	int msgboxID = MessageBox(
+		NULL,
+		(LPCWSTR)L"Fatal Error occured\nCheck console window for more info",
+		(LPCWSTR)L"ERROR",
+		MB_ICONWARNING
+	);
+}
+
+void Game::gameover()
+{
 }

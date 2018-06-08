@@ -4,7 +4,8 @@
 #include "vector"
 #include "Level.h"
 #include <SFML\Graphics.hpp>
-#include<iostream>
+#include <iostream>
+#include <Windows.h>
 
 #define height 720
 #define width 1280
@@ -23,6 +24,7 @@ private:
 	RenderWindow*window;
 	Clock Clock;
 
+	bool error = 0;
 public:
 	Game();
 	Game(int setscore, int setlevel);
@@ -35,5 +37,7 @@ public:
 	void levelhandling();
 	void enemiesaction();
 	void colliesions();
+	void messagebox();
+	void gameover();
 };
 

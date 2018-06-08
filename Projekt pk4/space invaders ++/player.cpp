@@ -70,7 +70,10 @@ Bullet* Player::Shoot()
 	}
 }
 
-/*void Player::drawplayer(RenderWindow*window)
+bool Player::isAlive()
 {
-	MySprite::draw(window, position);
-}*/
+	if (this->hp > 0)
+		return true;
+	else
+		return false;
+}

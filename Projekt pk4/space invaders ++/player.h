@@ -20,6 +20,6 @@ public:
 	int GetHP();
 	void changeHP(int diffrence);
 	Bullet* Shoot();
-//	void drawplayer(RenderWindow*window);
+	bool isAlive();
 };
 

@@ -9,7 +9,7 @@ private:
 //	Vector2i position;
 	Vector2i speed;
 	int damage;
-	
+
 
 public:
 	Bullet() :Bullet(Vector2u(0, 0)) {}

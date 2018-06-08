@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Level.h"
+#include <iostream>
 
 Level::Level(MySprite * target, int levelId)
 {
@@ -9,6 +10,9 @@ Level::Level(MySprite * target, int levelId)
 
 Level::~Level()
 {
+	for (int i = 0; i < enemies.size(); i++)
+		delete enemies[i];
+	enemies.clear();
 }
 
 const std::vector<Enemy*>& Level::getenemies()
@@ -32,6 +36,7 @@ void Level::addenemy(Enemy * enemy)
 void Level::loadlevel()
 {
 	std::smatch result;
+	int fileline = 0;
 	std::string line;
 	std::ifstream levelfile;
 	std::string filename= std::to_string(levelId) + ".lvl";
@@ -40,16 +45,25 @@ void Level::loadlevel()
 	{
 		while (!levelfile.eof())
 		{
-			getline(levelfile, line);
-			if (regex_match(line, patterndefault))
+		getline(levelfile, line);
+		fileline++;
+		if (regex_match(line, patterndefault))
 			{
 				regex_search(line, result, patterndefault);
 				createenemy(result[1], Vector2u(stoi(result[2]), stoi(result[3])));
 			}
-			if (regex_match(line, patternhpdmg))
+			else
 			{
-				regex_search(line, result, patternhpdmg);
-				createenemy(result[1], Vector2u(stoi(result[2]), stoi(result[3])), stoi(result[4]), stoi(result[5]));
+				if (regex_match(line, patternhpdmg))
+				{
+					regex_search(line, result, patternhpdmg);
+					createenemy(result[1], Vector2u(stoi(result[2]), stoi(result[3])), stoi(result[4]), stoi(result[5]));
+				}
+				else
+				{
+					std::string exception = "File " + filename + " do not match expected pattern at line " + std::to_string(fileline);
+					throw exception;
+				}
 			}
 		}
 	}
@@ -69,13 +83,10 @@ void Level::createenemy(std::string enemyname, Vector2u position)
 			addenemy(new MediumEnemy(position));
 		else
 			if (enemyname == "BigEnemy")
-				if(target!=NULL)
-				addenemy(new BigEnemy(target,position));
-				else
-				{
-					std::string exception = "Enemy " + enemyname + " could not be created. Chceck if enemy name is correct.";
-					throw exception;
-				}
+			{
+				if (target != NULL)
+					addenemy(new BigEnemy(target, position));
+			}
 }
 
 void Level::createenemy(std::string enemyname, Vector2u position, int hp, int damage)
@@ -87,13 +98,10 @@ void Level::createenemy(std::string enemyname, Vector2u position, int hp, int da
 			addenemy(new MediumEnemy(position, hp, damage));
 		else
 			if (enemyname == "BigEnemy")
+			{
 				if (target != NULL)
 					addenemy(new BigEnemy(target, position, hp, damage));
-				else
-				{
-					std::string exception = "Enemy " + enemyname + " could not be created. Chceck if enemy name is correct.";
-					throw exception;
-				}
+			}
 }
 
 void Level::removeenemy(int i)
