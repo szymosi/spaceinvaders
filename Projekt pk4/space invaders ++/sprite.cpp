@@ -56,11 +56,6 @@ bool MySprite::CheckIfOnScreen(Vector2u WindowSize,Vector2u position)
 	return false;
 }
 
-void MySprite::draw(RenderTarget & target, RenderStates states) const
-{
-	target.draw(graphic, states);
-}
-
 void MySprite::draw(RenderWindow*window, Vector2u position)
 {
 	graphic.setPosition((Vector2f)position);

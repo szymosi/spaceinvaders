@@ -119,3 +119,8 @@ void Level::nextlevel()
 	loadlevel();
 }
 
+int Level::getlevelid()
+{
+	return levelId;
+}
+

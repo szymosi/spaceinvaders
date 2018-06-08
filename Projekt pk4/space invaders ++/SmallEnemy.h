@@ -26,3 +26,6 @@ public:
 	void move(float frametime);
 	void shoot();
 };
+
+/*Enemy moves left and right 
+Shoots 3 bullets 1 straight down and 2 30 degrees from first uses small bullets*/

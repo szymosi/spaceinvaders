@@ -22,11 +22,6 @@ int Bullet::getdmg()
 	return this->damage;
 }
 
-void Bullet::move()
-{
-	position.x += speed.x;
-	position.y += speed.y;
-}
 void Bullet::move(float frametime)
 {
 	position.x +=(int)(frametime* (float)speed.x);

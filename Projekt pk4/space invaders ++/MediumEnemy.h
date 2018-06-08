@@ -25,3 +25,5 @@ public:
 	void shoot();
 };
 
+/*Enemy goes arround piont defined as starting point
+shoots X and + patterns alternately using medium bullets*/

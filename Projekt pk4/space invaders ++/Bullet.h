@@ -6,7 +6,6 @@
 class Bullet : public MySprite
 {
 private:
-//	Vector2i position;
 	Vector2i speed;
 	int damage;
 
@@ -23,7 +22,6 @@ public:
 	Vector2u getposition();
 	int getdmg();
 
-	void move();
-	void move(float frametime);
+	void move(float frametime);//moves position acording to bullets speed and time form last movement
 };
 

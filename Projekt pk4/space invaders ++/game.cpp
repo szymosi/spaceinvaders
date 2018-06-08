@@ -2,18 +2,20 @@
 #include "game.h"
 
 
-Game::Game() :Game(0, 1)
+Game::Game() :Game(0, 1, 2)
 {
 }
 
-Game::Game(int setscore, int setlevel)
+Game::Game(int setscore, int setlevel, unsigned int numberoflevels)
 {
 	score = setscore;
 	player = new Player();
+	this->numberoflevels = numberoflevels;
 	level = new Level(player, setlevel);
 	window = new RenderWindow(VideoMode{ width, height }, "testy", Style::Default);
 	window->setFramerateLimit(60);
 	window->setMouseCursorVisible(false);
+	gamepassed = 0;
 }
 
 
@@ -39,6 +41,7 @@ float Game::getframetime()
 
 void Game::movebullets()
 {
+	//moving players bullets
 	for (unsigned int i = 0; i < bullets.size(); i++)
 	{
 		bullets[i]->move(frametime);
@@ -75,7 +78,7 @@ void Game::loop()
 		error = 1;
 	}
 	Clock.restart();
-	while (window->isOpen() && error==0 && player->isAlive())
+	while (window->isOpen() && error==0 && player->isAlive() && !gamepassed)
 	{
 		frametime = Clock.getElapsedTime().asSeconds();
 		Clock.restart();
@@ -101,6 +104,8 @@ void Game::loop()
 	}
 	if(error==1)
 		messagebox();
+	if (gamepassed)
+		you_won();
 	if (!player->isAlive())
 		gameover();
 }
@@ -138,15 +143,20 @@ void Game::levelhandling()
 	}
 	if (level->checkiflevelpassed())
 	{
-		try
+		if (level->getlevelid() < numberoflevels)
 		{
-			level->nextlevel();
+			try
+			{
+				level->nextlevel();
+			}
+			catch (std::string exception)
+			{
+				std::cout << exception << std::endl;
+				error = 1;
+			}
 		}
-		catch (std::string exception)
-		{
-			std::cout << exception << std::endl;
-			error = 1;
-		}
+		else
+			gamepassed = 1;
 	}
 }
 
@@ -198,5 +208,9 @@ void Game::messagebox()
 }
 
 void Game::gameover()
+{
+}
+
+void Game::you_won()
 {
 }

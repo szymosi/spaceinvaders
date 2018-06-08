@@ -15,29 +15,32 @@ class Game
 private:
 	unsigned int score;
 	float frametime;
+	unsigned int numberoflevels;
+	bool gamepassed;// true if all levels passed
 
 	Player*player;
 	Level*level;
-	std::vector<Bullet*> bullets;
+	std::vector<Bullet*> bullets; //players bullets
 
-	Event event;
+	Event event; //SFML events
 	RenderWindow*window;
-	Clock Clock;
+	Clock Clock;//used for calculateing frametime
 
-	bool error = 0;
+	bool error = 0;// 1 if fatal errors occerred
 public:
 	Game();
-	Game(int setscore, int setlevel);
+	Game(int setscore, int setlevel, unsigned int numberoflevels);//default values 0,1,3 
 	~Game();
 	Player*getplayer();
-	float getframetime();
-	void movebullets();
-	void loop();
-	void draweverything();
-	void levelhandling();
-	void enemiesaction();
-	void colliesions();
-	void messagebox();
-	void gameover();
+	float getframetime();//used for calculating bullets and enemies speeds
+	void movebullets();//moves enemies and players bullets
+	void loop();//main loop of game
+	void draweverything();//draws players and enemies bullets, enemies and player 
+	void levelhandling();//removes dead enemies, checks if level poassed, load new levels, checks if game won
+	void enemiesaction();//enemies move and shoot
+	void colliesions();//finds and handling colisions
+	void messagebox();//shows ERROR messagebox
+	void gameover();//Shows game over screen
+	void you_won();//Shows win screen
 };
 

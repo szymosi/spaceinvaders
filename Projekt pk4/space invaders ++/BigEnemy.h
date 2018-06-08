@@ -15,3 +15,5 @@ public:
 	void shoot();
 };
 
+/*Enemy does not move
+Shoots in targets (usually players) direction using big bullets*/
