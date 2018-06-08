@@ -5,7 +5,6 @@
 #include "BigEnemy.h"
 #include "sprite.h"
 #include <fstream>
-#include <iostream>
 #include <regex>
 #include <string>
 

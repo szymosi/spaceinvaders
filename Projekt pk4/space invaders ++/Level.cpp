@@ -31,8 +31,6 @@ void Level::addenemy(Enemy * enemy)
 
 void Level::loadlevel()
 {
-//	std::string enemyname;
-//	Vector2u position;
 	std::smatch result;
 	std::string line;
 	std::ifstream levelfile;
@@ -55,6 +53,11 @@ void Level::loadlevel()
 			}
 		}
 	}
+	else
+	{
+		std::string exception = "File " + filename + " could not be opened. Level not loaded.";
+		throw exception;
+	}
 }
 
 void Level::createenemy(std::string enemyname, Vector2u position)
@@ -68,8 +71,11 @@ void Level::createenemy(std::string enemyname, Vector2u position)
 			if (enemyname == "BigEnemy")
 				if(target!=NULL)
 				addenemy(new BigEnemy(target,position));
-			//else
-				//dodac wyj¹tek
+				else
+				{
+					std::string exception = "Enemy " + enemyname + " could not be created. Chceck if enemy name is correct.";
+					throw exception;
+				}
 }
 
 void Level::createenemy(std::string enemyname, Vector2u position, int hp, int damage)
@@ -83,6 +89,11 @@ void Level::createenemy(std::string enemyname, Vector2u position, int hp, int da
 			if (enemyname == "BigEnemy")
 				if (target != NULL)
 					addenemy(new BigEnemy(target, position, hp, damage));
+				else
+				{
+					std::string exception = "Enemy " + enemyname + " could not be created. Chceck if enemy name is correct.";
+					throw exception;
+				}
 }
 
 void Level::removeenemy(int i)

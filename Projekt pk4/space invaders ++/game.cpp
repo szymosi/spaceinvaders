@@ -125,7 +125,14 @@ void Game::levelhandling()
 	}
 	if (level->checkiflevelpassed())
 	{
-		level->nextlevel();
+		try
+		{
+			level->nextlevel();
+		}
+		catch (std::string exception)
+		{
+			std::cout << exception << std::endl;
+		}
 	}
 }
 
