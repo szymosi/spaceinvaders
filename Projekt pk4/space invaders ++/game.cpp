@@ -125,8 +125,7 @@ void Game::levelhandling()
 	}
 	if (level->checkiflevelpassed())
 	{
-		level++;
-		level->loadlevel();
+		level->nextlevel();
 	}
 }
 

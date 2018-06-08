@@ -3,10 +3,12 @@
 #include <math.h>
 
 
-BigEnemy::BigEnemy(MySprite * target, Vector2u position, float timebetweenshoots, int bulletspeed)
+BigEnemy::BigEnemy(MySprite*target, Vector2u position, int hp, int bulletdamage, float timebetweenshoots, int bulletspeed)
 {
 	this->target = target;
 	this->position = position;
+	this->hp = hp;
+	this->bulletdamage = bulletdamage;
 	this->timebetweenshoots = timebetweenshoots;
 	this->bulletspeed = bulletspeed;
 	this->speed = 0;

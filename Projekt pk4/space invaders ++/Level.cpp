@@ -31,8 +31,8 @@ void Level::addenemy(Enemy * enemy)
 
 void Level::loadlevel()
 {
-	std::string enemyname;
-	Vector2u position;
+//	std::string enemyname;
+//	Vector2u position;
 	std::ifstream levelfile;
 	std::string filename= std::to_string(levelId) + ".lvl";
 	levelfile.open(filename);
@@ -40,10 +40,11 @@ void Level::loadlevel()
 	{
 		while (!levelfile.eof())
 		{
-			levelfile >> enemyname;
-			levelfile >> position.x;
-			levelfile >> position.y;
-			createenemy(enemyname, position);
+
+			//levelfile >> enemyname;
+			//levelfile >> position.x;
+			//levelfile >> position.y;
+//			createenemy(enemyname, position);
 		}
 	}
 }
@@ -72,9 +73,9 @@ void Level::removeenemy(int i)
 	}
 }
 
-Level & Level::operator++()
+void Level::nextlevel()
 {
 	this->levelId++;
-	return *this;
+	loadlevel();
 }
 

@@ -12,12 +12,13 @@ class MediumEnemy:public Enemy
 
 public:
 	MediumEnemy() :MediumEnemy(Vector2u(640, 360)) {}
-	MediumEnemy(Vector2u position) :MediumEnemy(position, 100) {}
-	MediumEnemy(Vector2u position, int bulletspeed) :MediumEnemy(position, bulletspeed,175) {}
-	MediumEnemy(Vector2u position, int bulletspeed, float radius) :MediumEnemy(position, bulletspeed,radius,100) {}
-	MediumEnemy(Vector2u position, int bulletspeed, float radius,int speed) :MediumEnemy(position, bulletspeed, radius, speed,1.5) {}
-	MediumEnemy(Vector2u position, int bulletspeed, float radius,int speed, float timebetweenshoots) :MediumEnemy(position, bulletspeed, radius, speed,timebetweenshoots,0) {}
-	MediumEnemy(Vector2u position, int bulletspeed, float radius,int speed, float timebetweenshoots, bool shootingpatern);
+	MediumEnemy(Vector2u position) :MediumEnemy(position, 750,150) {}
+	MediumEnemy(Vector2u position, int hp, int bulletdamage) :MediumEnemy(position, hp, bulletdamage, 100) {}
+	MediumEnemy(Vector2u position, int hp, int bulletdamage, int bulletspeed) :MediumEnemy(position, hp, bulletdamage, bulletspeed,175) {}
+	MediumEnemy(Vector2u position, int hp, int bulletdamage, int bulletspeed, float radius) :MediumEnemy(position, hp, bulletdamage, bulletspeed,radius,100) {}
+	MediumEnemy(Vector2u position, int hp, int bulletdamage, int bulletspeed, float radius,int speed) :MediumEnemy(position, hp, bulletdamage, bulletspeed, radius, speed,1.5) {}
+	MediumEnemy(Vector2u position, int hp, int bulletdamage, int bulletspeed, float radius,int speed, float timebetweenshoots) :MediumEnemy(position, hp, bulletdamage, bulletspeed, radius, speed,timebetweenshoots,0) {}
+	MediumEnemy(Vector2u position, int hp, int bulletdamage, int bulletspeed, float radius,int speed, float timebetweenshoots, bool shootingpatern);
 	~MediumEnemy();
 
 	void move(float frametime);

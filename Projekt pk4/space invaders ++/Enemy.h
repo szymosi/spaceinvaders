@@ -4,12 +4,11 @@
 #include "Bullet.h"
 class Enemy :public MySprite
 {
-private:
-	int hp = 100;
 protected:
+	int hp;
 	int speed;
 	int bulletspeed;
-	int	bulletdmg;
+	int	bulletdamage;
 	Clock Clock;
 	std::vector<Bullet*> bullets;
 	float timebetweenshoots;

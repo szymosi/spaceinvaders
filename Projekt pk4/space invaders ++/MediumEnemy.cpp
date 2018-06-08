@@ -5,16 +5,18 @@
 
 
 
-MediumEnemy::MediumEnemy(Vector2u position, int bulletspeed, float radius, int speed, float timebetweenshoots, bool shootingpatern)
+MediumEnemy::MediumEnemy(Vector2u position, int hp, int bulletdamage, int bulletspeed, float radius, int speed, float timebetweenshoots, bool shootingpatern)
 {
 	this->startpoint = position;
+	this->position.x = (int)cos(degree*Pi / 180.0) + startpoint.x;
+	this->position.y = (int)sin(degree*Pi / 180.0) + startpoint.y;
+	this->hp = hp;
+	this->bulletdamage = bulletdamage;
 	this->bulletspeed = bulletspeed;
 	this->radius = radius;
 	this->speed = speed;
-	this->Xshootingpatern = shootingpatern;
 	this->timebetweenshoots = timebetweenshoots;
-	this->position.x = (int)cos(degree*Pi / 180.0) + startpoint.x;
-	this->position.y = (int)sin(degree*Pi / 180.0) + startpoint.y;
+	this->Xshootingpatern = shootingpatern;
 	this->SetGraphic("MediumEnemy.png");
 	Clock.restart();
 }

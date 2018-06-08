@@ -2,15 +2,17 @@
 #include "SmallEnemy.h"
 
 
-SmallEnemy::SmallEnemy(Vector2u position, unsigned int range, int speed, float timebetweenshoots, int bulletspeed, bool moveleft)
+SmallEnemy::SmallEnemy(Vector2u position, int hp, int bulletdamage, unsigned int range, int speed, float timebetweenshoots, int bulletspeed, bool moveleft)
 {
 	this->position = position;
-	this->moveleft = moveleft;
+	this->startpoint = position;
+	this->hp = hp;
+	this->bulletdamage = bulletdamage;
 	this->range = range;
 	this->speed = speed;
-	this->bulletspeed = bulletspeed;
-	this->startpoint = position;
 	this->timebetweenshoots = timebetweenshoots;
+	this->bulletspeed = bulletspeed;
+	this->moveleft = moveleft;
 	this->SetGraphic("SmallEnemy.png");
 	Clock.restart();
 }
