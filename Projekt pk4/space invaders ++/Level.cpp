@@ -33,6 +33,8 @@ void Level::loadlevel()
 {
 //	std::string enemyname;
 //	Vector2u position;
+	std::smatch result;
+	std::string line;
 	std::ifstream levelfile;
 	std::string filename= std::to_string(levelId) + ".lvl";
 	levelfile.open(filename);
@@ -40,11 +42,17 @@ void Level::loadlevel()
 	{
 		while (!levelfile.eof())
 		{
-
-			//levelfile >> enemyname;
-			//levelfile >> position.x;
-			//levelfile >> position.y;
-//			createenemy(enemyname, position);
+			getline(levelfile, line);
+			if (regex_match(line, patterndefault))
+			{
+				regex_search(line, result, patterndefault);
+				createenemy(result[1], Vector2u(stoi(result[2]), stoi(result[3])));
+			}
+			if (regex_match(line, patternhpdmg))
+			{
+				regex_search(line, result, patternhpdmg);
+				createenemy(result[1], Vector2u(stoi(result[2]), stoi(result[3])), stoi(result[4]), stoi(result[5]));
+			}
 		}
 	}
 }
@@ -62,6 +70,19 @@ void Level::createenemy(std::string enemyname, Vector2u position)
 				addenemy(new BigEnemy(target,position));
 			//else
 				//dodac wyj¹tek
+}
+
+void Level::createenemy(std::string enemyname, Vector2u position, int hp, int damage)
+{
+	if (enemyname == "SmallEnemy")
+		addenemy(new SmallEnemy(position,hp,damage));
+	else
+		if (enemyname == "MediumEnemy")
+			addenemy(new MediumEnemy(position, hp, damage));
+		else
+			if (enemyname == "BigEnemy")
+				if (target != NULL)
+					addenemy(new BigEnemy(target, position, hp, damage));
 }
 
 void Level::removeenemy(int i)
