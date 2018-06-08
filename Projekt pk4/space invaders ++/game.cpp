@@ -25,6 +25,7 @@ Game::~Game()
 	delete player;
 	delete window;
 	delete level;
+	delete UI;
 	for (unsigned int i = 0; i < bullets.size(); i++)
 		delete bullets[i];
 }
@@ -215,8 +216,15 @@ void Game::messagebox()
 
 void Game::gameover()
 {
+	window->clear();
+	UI->GetLoseScreen()->draw(window);
+	window->display();
+	system("pause");
 }
 
 void Game::you_won()
 {
+	UI->GetWinScreen()->draw(window);
+	window->display();
+	system("pause");
 }
