@@ -80,7 +80,7 @@ void Game::loop()
 		error = 1;
 	}
 	Clock.restart();
-	while (window->isOpen() && error==0 && player->isAlive() && !gamepassed)
+	while (window->isOpen() && error==0)
 	{
 		frametime = Clock.getElapsedTime().asSeconds();
 		Clock.restart();
@@ -90,7 +90,13 @@ void Game::loop()
 		{
 			window->close();
 		}
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		if (gamepassed)
+			you_won();
+		if (!player->isAlive())
+			gameover();
+		if (Keyboard::isKeyPressed(Keyboard::Escape))
+			pausemenu();
+		if (Mouse::isButtonPressed(Mouse::Left))
 		{
 			Bullet*tmp = player->Shoot();
 			if (tmp != NULL)
@@ -106,10 +112,6 @@ void Game::loop()
 	}
 	if(error==1)
 		messagebox();
-	if (gamepassed)
-		you_won();
-	if (!player->isAlive())
-		gameover();
 }
 
 
@@ -225,7 +227,7 @@ void Game::gameover()
 		player->SetPosition(Mouse::getPosition(*window), window->getSize());
 		player->draw(window);
 		window->display();
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		if (Mouse::isButtonPressed(Mouse::Left))
 		{
 			if (player->colides(UI->GetRestartButton()))
 			{
@@ -241,6 +243,10 @@ void Game::gameover()
 	{
 		this->restartgame();
 	}
+	if (this->quit == 1)
+	{
+		this->window->close();
+	}
 }
 
 void Game::you_won()
@@ -254,7 +260,7 @@ void Game::you_won()
 		player->SetPosition(Mouse::getPosition(*window), window->getSize());
 		player->draw(window);
 		window->display();
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		if (Mouse::isButtonPressed(Mouse::Left))
 		{
 			if (player->colides(UI->GetRestartButton()))
 			{
@@ -270,6 +276,10 @@ void Game::you_won()
 	{
 		this->restartgame();
 	}
+	if (this->quit == 1)
+	{
+		this->window->close();
+	}
 }
 
 void Game::restartgame()
@@ -283,4 +293,47 @@ void Game::restartgame()
 	this->score = 0;
 	this->gamepassed = 0;
 	this->loop();
+}
+
+void Game::pausemenu()
+{
+	bool resume = 0;
+	while (!this->restart && !this->quit && !resume)
+	{
+		window->clear();
+		UI->GetPauseScreen()->draw(window);
+		UI->GetResumeButton()->draw(window);
+		UI->GetRestartButton()->draw(window);
+		UI->GetQuitButton()->draw(window);
+		player->SetPosition(Mouse::getPosition(*window), window->getSize());
+		player->draw(window);
+		window->display();
+		if (Mouse::isButtonPressed(Mouse::Left))
+		{
+			if (player->colides(UI->GetResumeButton()))
+			{
+				resume = 1;
+			}
+			if (player->colides(UI->GetRestartButton()))
+			{
+				this->restart = 1;
+			}
+			if (player->colides(UI->GetQuitButton()))
+			{
+				this->quit = 1;
+			}
+		}
+	}
+	if (this->restart == 1)
+	{
+		this->restartgame();
+	}
+	if (this->quit == 1)
+	{
+		this->window->close();
+	}
+	if (resume == 1)
+	{
+		this->Clock.restart();
+	}
 }

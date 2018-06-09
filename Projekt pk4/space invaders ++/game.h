@@ -48,5 +48,6 @@ public:
 	void gameover();//Shows game over screen
 	void you_won();//Shows win screen
 	void restartgame();//starts the game from default level with full hp
+	void pausemenu();
 };
 
