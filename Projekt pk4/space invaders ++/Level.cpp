@@ -15,6 +15,11 @@ Level::~Level()
 	enemies.clear();
 }
 
+void Level::setLevelId(int LevelId)
+{
+	this->levelId = LevelId;
+}
+
 const std::vector<Enemy*>& Level::getenemies()
 {
 	return enemies;

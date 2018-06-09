@@ -17,7 +17,10 @@ private:
 	unsigned int score;
 	float frametime;
 	unsigned int numberoflevels;
+
 	bool gamepassed;// true if all levels passed
+	bool restart = 0;
+	bool quit = 0;
 
 	Player*player;
 	Level*level;
@@ -44,5 +47,6 @@ public:
 	void messagebox();//shows ERROR messagebox
 	void gameover();//Shows game over screen
 	void you_won();//Shows win screen
+	void restartgame();//starts the game from default level with full hp
 };
 

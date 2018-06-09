@@ -23,6 +23,7 @@ public:
 	Level(MySprite*target, int levelId);
 	~Level();
 
+	void setLevelId(int LevelId);
 	const std::vector<Enemy*> & getenemies();//returns vector of enemies not allewing changes
 	bool checkiflevelpassed();//returns true if all enemies dead
 	void addenemy(Enemy* enemy);//adds enemy to enemies vector

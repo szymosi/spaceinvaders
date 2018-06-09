@@ -10,9 +10,12 @@ UserInterface::UserInterface()
 	HpBar->GetGraphic()->setOrigin(0, 0);
 	this->Win = new MySprite("you win.png", Vector2u(640, 360));
 	this->Lose = new MySprite("game over.png", Vector2u(640, 360));
+	this->Resume = new MySprite("resume.png", Vector2u(640, 450));
+	this->Restart = new MySprite("restart.png", Vector2u(640, 550));
+	this->Quit = new MySprite("quit.png", Vector2u(640, 650));
 }
 
-UserInterface::UserInterface(std::string background, Vector2u background_pos, std::string HpBar, Vector2u HpBar_pos, std::string HpBackground, Vector2u HpBackground_pos, std::string Win, Vector2u Win_pos, std::string Lose, Vector2u Lose_pos)
+UserInterface::UserInterface(std::string background, Vector2u background_pos, std::string HpBar, Vector2u HpBar_pos, std::string HpBackground, Vector2u HpBackground_pos, std::string Win, Vector2u Win_pos, std::string Lose, Vector2u Lose_pos, std::string Resume, Vector2u Resume_pos, std::string Restart, Vector2u Restart_pos, std::string Quit, Vector2u Quit_pos)
 {
 	this->background = new MySprite(background, background_pos);
 	this->HpBackground = new MySprite(HpBackground, HpBackground_pos);
@@ -20,6 +23,9 @@ UserInterface::UserInterface(std::string background, Vector2u background_pos, st
 	this->HpBar->GetGraphic()->setOrigin(0, 0);
 	this->Win = new MySprite(Win, Win_pos);
 	this->Lose = new MySprite(Lose, Lose_pos);
+	this->Resume= new MySprite(Resume, Resume_pos);
+	this->Restart = new MySprite(Restart, Restart_pos);
+	this->Quit = new MySprite(Quit, Quit_pos);
 }
 
 
@@ -55,6 +61,21 @@ MySprite * UserInterface::GetWinScreen()
 MySprite * UserInterface::GetLoseScreen()
 {
 	return this->Lose;
+}
+
+MySprite * UserInterface::GetResumeButton()
+{
+	return this->Resume;
+}
+
+MySprite * UserInterface::GetRestartButton()
+{
+	return this->Restart;
+}
+
+MySprite * UserInterface::GetQuitButton()
+{
+	return this->Quit;
 }
 
 void UserInterface::ScaleHpBar(float scale)

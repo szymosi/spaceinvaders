@@ -216,12 +216,71 @@ void Game::messagebox()
 
 void Game::gameover()
 {
-	UI->GetLoseScreen()->draw(window);
-	window->display();
+	while (!this->restart && !this->quit)
+	{
+		window->clear();
+		UI->GetLoseScreen()->draw(window);
+		UI->GetRestartButton()->draw(window);
+		UI->GetQuitButton()->draw(window);
+		player->SetPosition(Mouse::getPosition(*window), window->getSize());
+		player->draw(window);
+		window->display();
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		{
+			if (player->colides(UI->GetRestartButton()))
+			{
+				this->restart = 1;
+			}
+			if (player->colides(UI->GetQuitButton()))
+			{
+				this->quit = 1;
+			}
+		}
+	}
+	if (this->restart==1)
+	{
+		this->restartgame();
+	}
 }
 
 void Game::you_won()
 {
-	UI->GetWinScreen()->draw(window);
-	window->display();
+	while (!this->restart && !this->quit)
+	{
+		window->clear();
+		UI->GetWinScreen()->draw(window);
+		UI->GetRestartButton()->draw(window);
+		UI->GetQuitButton()->draw(window);
+		player->SetPosition(Mouse::getPosition(*window), window->getSize());
+		player->draw(window);
+		window->display();
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		{
+			if (player->colides(UI->GetRestartButton()))
+			{
+				this->restart = 1;
+			}
+			if (player->colides(UI->GetQuitButton()))
+			{
+				this->quit = 1;
+			}
+		}
+	}
+	if (this->restart == 1)
+	{
+		this->restartgame();
+	}
+}
+
+void Game::restartgame()
+{
+	this->restart = 0;
+	this->quit = 0;
+	while (level->getenemies().size() > 0)
+		level->removeenemy(0);
+	player->SetHP(player->getMaxHP());
+	level->setLevelId(1);
+	this->score = 0;
+	this->gamepassed = 0;
+	this->loop();
 }
