@@ -26,6 +26,7 @@ private:
 
 	void SetTexture(std::string filename);//loads texture from file
 	void SetGraphic(std::string filename);//loads sprite from file sets its position in the middle
+	Sprite* GetGraphic();
 	Vector2u GetPosition();//returns sprites possition
 	bool CheckIfOnScreen(Vector2u WindowSize, Vector2u position);//return true if inside window, fales if outside window
 	void draw(RenderWindow*window, Vector2u position);//draws sprite inside window at given possition

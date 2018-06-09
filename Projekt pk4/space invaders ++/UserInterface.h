@@ -22,5 +22,7 @@ public:
 	MySprite*GetHpBackground();
 	MySprite*GetWinScreen();
 	MySprite*GetLoseScreen();
+
+	void ScaleHpBar(float scale);
 };
 

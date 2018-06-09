@@ -6,7 +6,7 @@
 class Player : public MySprite
 {
 private:
-//	Vector2i position;
+	int maxhp;
 	int hp;
 	Clock Clock;
 	float timebetweenbullets = 0.2f;
@@ -18,6 +18,7 @@ public:
 	void SetHP(int newhp);//changes players hp to newhp
 	sf::Vector2u GetPosition();//returns players position
 	int GetHP();//returns players hp
+	int getMaxHP();//returns hp player started with;
 	void changeHP(int diffrence);//adds diffrence to players hp
 	Bullet* Shoot();//makes player shoot if possible
 	bool isAlive();//returns true if players hp is more than 0

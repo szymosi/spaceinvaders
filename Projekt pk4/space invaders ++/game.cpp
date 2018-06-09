@@ -82,7 +82,6 @@ void Game::loop()
 	Clock.restart();
 	while (window->isOpen() && error==0 && player->isAlive() && !gamepassed)
 	{
-		std::cout << player->GetHP() << std::endl;
 		frametime = Clock.getElapsedTime().asSeconds();
 		Clock.restart();
 		window->clear(Color::Black);
@@ -118,6 +117,7 @@ void Game::loop()
 void Game::draweverything()
 {
 	//draw UI
+	UI->ScaleHpBar((float)(player->GetHP()) / (float)(player->getMaxHP()));
 	UI->Getbackground()->draw(window);
 	UI->GetHpBar()->draw(window);
 	UI->GetHpBackground()->draw(window);
@@ -190,7 +190,7 @@ void Game::colliesions()
 		}
 		if (player->colides(level->getenemies()[i]))
 		{
-			player->changeHP(-(player->GetHP() / 2));//collisions of player with enemies
+			player->changeHP(-10);//collisions of player with enemies
 		}
 		for (unsigned int a = 0; a < bullets.size(); a++)
 		{
@@ -216,15 +216,12 @@ void Game::messagebox()
 
 void Game::gameover()
 {
-	window->clear();
 	UI->GetLoseScreen()->draw(window);
 	window->display();
-	system("pause");
 }
 
 void Game::you_won()
 {
 	UI->GetWinScreen()->draw(window);
 	window->display();
-	system("pause");
 }

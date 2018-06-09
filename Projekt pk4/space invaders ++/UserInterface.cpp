@@ -6,7 +6,8 @@ UserInterface::UserInterface()
 {
 	this->background=new MySprite("Background.png",Vector2u(640,360));
 	this->HpBackground = new MySprite("HpBackground.png", Vector2u(150, 43));
-	this->HpBar = new MySprite("HpBar.png", HpBackground->GetPosition());
+	this->HpBar = new MySprite("HpBar.png", Vector2u(40, 20));
+	HpBar->GetGraphic()->setOrigin(0, 0);
 	this->Win = new MySprite("you win.png", Vector2u(640, 360));
 	this->Lose = new MySprite("game over.png", Vector2u(640, 360));
 }
@@ -16,6 +17,7 @@ UserInterface::UserInterface(std::string background, Vector2u background_pos, st
 	this->background = new MySprite(background, background_pos);
 	this->HpBackground = new MySprite(HpBackground, HpBackground_pos);
 	this->HpBar = new MySprite(HpBar, HpBar_pos);
+	this->HpBar->GetGraphic()->setOrigin(0, 0);
 	this->Win = new MySprite(Win, Win_pos);
 	this->Lose = new MySprite(Lose, Lose_pos);
 }
@@ -54,3 +56,9 @@ MySprite * UserInterface::GetLoseScreen()
 {
 	return this->Lose;
 }
+
+void UserInterface::ScaleHpBar(float scale)
+{
+	HpBar->GetGraphic()->setScale(scale, 1);
+}
+

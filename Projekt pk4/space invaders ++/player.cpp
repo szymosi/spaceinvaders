@@ -16,6 +16,7 @@ Player::Player():Player(Vector2u(640,360),1000)
 Player::Player(Vector2u setposition, int sethp) :MySprite("Player.png",setposition)
 {
 	hp = sethp;
+	maxhp = sethp;
 }
 
 Player::~Player()
@@ -49,6 +50,11 @@ sf::Vector2u Player::GetPosition()
 int Player::GetHP()
 {
 	return hp;
+}
+
+int Player::getMaxHP()
+{
+	return this->maxhp;
 }
 
 void Player::changeHP(int diffrence)

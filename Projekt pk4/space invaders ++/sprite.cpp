@@ -43,6 +43,11 @@ void MySprite::SetGraphic(std::string filename)
 	graphic.setTextureRect(IntRect(0,0,size.x,size.y));
 }
 
+Sprite * MySprite::GetGraphic()
+{
+	return &graphic;
+}
+
 Vector2u MySprite::GetPosition()
 {
 	return this->position;
