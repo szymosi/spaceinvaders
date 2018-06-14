@@ -1,6 +1,6 @@
 #pragma once
 #include "sprite.h"
-#include "vector"
+#include <vector>
 #include "Bullet.h"
 class Enemy :public MySprite
 {
@@ -19,7 +19,7 @@ public:
 	int gethp();
 	void sethp(int hp);
 	void chengehp(int diffrence);//adds the diffrence to hp
-	const std::vector<Bullet*> & getbullets(); //returns vector of bullets not allewing changes
+	std::vector<Bullet*> & getbullets(); //returns vector of bullets
 	bool isAlive(); //returns true if enemy is alive, false if anemy is dead
 	void removebullet(int i); //removes bullet at given possition
 

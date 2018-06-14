@@ -28,6 +28,8 @@ Game::~Game()
 	delete UI;
 	for (unsigned int i = 0; i < bullets.size(); i++)
 		delete bullets[i];
+	for (unsigned int i = 0; i < enemiesbullets.size(); i++)
+		delete enemiesbullets[i];
 }
 
 
@@ -54,16 +56,14 @@ void Game::movebullets()
 		}
 	}
 	//moving enemies bullets
-	for (unsigned int i = 0; i < level->getenemies().size(); i++)
+	for (unsigned int a = 0; a < enemiesbullets.size(); a++)
 	{
-		for (unsigned int a = 0; a < level->getenemies()[i]->getbullets().size(); a++)
+		Bullet*tmpbullet = enemiesbullets[a];
+		tmpbullet->move(frametime);
+		if (!tmpbullet->CheckIfOnScreen(window->getSize(), tmpbullet->getposition()))
 		{
-			Bullet*tmpbullet = level->getenemies()[i]->getbullets()[a];
-			tmpbullet->move(frametime);
-			if (!tmpbullet->CheckIfOnScreen(window->getSize(), tmpbullet->getposition()))
-			{
-				level->getenemies()[i]->removebullet(a);
-			}
+			delete enemiesbullets[a];
+			enemiesbullets.erase(enemiesbullets.begin() + a);
 		}
 	}
 }
@@ -131,9 +131,9 @@ void Game::draweverything()
 	//draw enemies bullets
 	for (unsigned int i = 0; i < level->getenemies().size(); i++)
 	{
-		for (unsigned int a = 0; a < level->getenemies()[i]->getbullets().size(); a++)
+		for (unsigned int a = 0; a < enemiesbullets.size(); a++)
 		{
-			level->getenemies()[i]->getbullets()[a]->draw(window);
+			enemiesbullets[a]->draw(window);
 		}
 		level->getenemies()[i]->draw(window);//draw enemies
 		
@@ -175,21 +175,24 @@ void Game::enemiesaction()
 	{
 		level->getenemies()[i]->move(frametime);
 		level->getenemies()[i]->shoot();
+		std::copy(level->getenemies()[i]->getbullets().begin(), level->getenemies()[i]->getbullets().end(), back_inserter(enemiesbullets));
+		level->getenemies()[i]->getbullets().clear();
 	}
 }
 
 void Game::colliesions()
 {
+	for (unsigned int a = 0; a < enemiesbullets.size(); a++)
+	{
+		if (player->colides(enemiesbullets[a]))
+		{
+			player->changeHP(-(enemiesbullets[a]->getdmg()));//colisions of player and enemies bullets
+			delete enemiesbullets[a];
+			enemiesbullets.erase(enemiesbullets.begin() + a);
+		}
+	}
 	for (unsigned int i = 0; i < level->getenemies().size(); i++)
 	{
-		for (unsigned int a = 0; a < level->getenemies()[i]->getbullets().size(); a++)
-		{
-			if (player->colides(level->getenemies()[i]->getbullets()[a]))
-			{
-				player->changeHP(-(level->getenemies()[i]->getbullets()[a]->getdmg()));//colisions of player and enemies bullets
-				level->getenemies()[i]->removebullet(a);
-			}
-		}
 		if (player->colides(level->getenemies()[i]))
 		{
 			player->changeHP(-10);//collisions of player with enemies

@@ -1,11 +1,11 @@
 #pragma once
 
 #include "player.h"
-#include "vector"
 #include "Level.h"
 #include "UserInterface.h"
 #include <SFML\Graphics.hpp>
 #include <iostream>
+#include <vector>
 #include <Windows.h>
 
 #define height 720
@@ -26,6 +26,7 @@ private:
 	Level*level;
 	UserInterface*UI;
 	std::vector<Bullet*> bullets; //players bullets
+	std::vector<Bullet*> enemiesbullets;//enemies bullets
 
 	Event event; //SFML events
 	RenderWindow*window;

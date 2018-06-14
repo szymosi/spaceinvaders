@@ -34,7 +34,7 @@ void Enemy::chengehp(int diffrence)
 	this->hp += diffrence;
 }
 
-const std::vector<Bullet*> & Enemy::getbullets()
+std::vector<Bullet*> & Enemy::getbullets()
 {
 	return bullets;
 }
