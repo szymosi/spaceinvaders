@@ -6,6 +6,7 @@
 #include <SFML\Graphics.hpp>
 #include <iostream>
 #include <vector>
+#include <algorithm>
 #include <Windows.h>
 
 #define height 720
@@ -50,5 +51,6 @@ public:
 	void you_won();//Shows win screen
 	void restartgame();//starts the game from default level with full hp
 	void pausemenu();
+	void clearenemiesbullets();
 };
 

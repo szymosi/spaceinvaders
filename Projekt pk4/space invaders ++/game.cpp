@@ -70,6 +70,7 @@ void Game::movebullets()
 
 void Game::loop()
 {
+	Mouse::setPosition(Vector2i(width/2,height/2),*window);
 	try
 	{
 		level->loadlevel();
@@ -295,6 +296,7 @@ void Game::restartgame()
 	level->setLevelId(1);
 	this->score = 0;
 	this->gamepassed = 0;
+	this->clearenemiesbullets();
 	this->loop();
 }
 
@@ -339,4 +341,11 @@ void Game::pausemenu()
 	{
 		this->Clock.restart();
 	}
+}
+
+void Game::clearenemiesbullets()
+{
+	for (unsigned int i = 0; i < enemiesbullets.size(); i++)
+		delete enemiesbullets[i];
+	enemiesbullets.clear();
 }
