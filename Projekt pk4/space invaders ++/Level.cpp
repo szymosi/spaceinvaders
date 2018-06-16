@@ -83,30 +83,26 @@ void Level::createenemy(std::string enemyname, Vector2u position)
 {
 	if (enemyname == "SmallEnemy")
 		addenemy(new SmallEnemy(position));
-	else
-		if (enemyname == "MediumEnemy")
-			addenemy(new MediumEnemy(position));
-		else
-			if (enemyname == "BigEnemy")
-			{
-				if (target != NULL)
-					addenemy(new BigEnemy(target, position));
-			}
+	if (enemyname == "MediumEnemy")
+		addenemy(new MediumEnemy(position));
+	if (enemyname == "BigEnemy")
+	{
+		if (target != NULL)
+			addenemy(new BigEnemy(target, position));
+	}
 }
 
 void Level::createenemy(std::string enemyname, Vector2u position, int hp, int damage)
 {
 	if (enemyname == "SmallEnemy")
 		addenemy(new SmallEnemy(position,hp,damage));
-	else
-		if (enemyname == "MediumEnemy")
-			addenemy(new MediumEnemy(position, hp, damage));
-		else
-			if (enemyname == "BigEnemy")
-			{
-				if (target != NULL)
-					addenemy(new BigEnemy(target, position, hp, damage));
-			}
+	if (enemyname == "MediumEnemy")
+		addenemy(new MediumEnemy(position, hp, damage));
+	if (enemyname == "BigEnemy")
+	{
+		if (target != NULL)
+			addenemy(new BigEnemy(target, position, hp, damage));
+	}
 }
 
 void Level::removeenemy(int i)

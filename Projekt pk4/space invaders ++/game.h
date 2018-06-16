@@ -45,7 +45,7 @@ public:
 	void draweverything();//draws players and enemies bullets, enemies and player 
 	void levelhandling();//removes dead enemies, checks if level poassed, load new levels, checks if game won
 	void enemiesaction();//enemies move and shoot
-	void colliesions();//finds and handling colisions
+	void collisions();//finds and handling colisions
 	void messagebox();//shows ERROR messagebox
 	void gameover();//Shows game over screen
 	void you_won();//Shows win screen

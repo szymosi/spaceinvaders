@@ -107,7 +107,7 @@ void Game::loop()
 		enemiesaction();
 		movebullets();
 		draweverything();
-		colliesions();
+		collisions();
 		levelhandling();
 		window->display();
 	}
@@ -129,12 +129,11 @@ void Game::draweverything()
 	{
 		bullets[i]->draw(window);
 	}
-	//draw enemies bullets
 	for (unsigned int i = 0; i < level->getenemies().size(); i++)
 	{
 		for (unsigned int a = 0; a < enemiesbullets.size(); a++)
 		{
-			enemiesbullets[a]->draw(window);
+			enemiesbullets[a]->draw(window);//draw enemies bullets
 		}
 		level->getenemies()[i]->draw(window);//draw enemies
 		
@@ -181,7 +180,7 @@ void Game::enemiesaction()
 	}
 }
 
-void Game::colliesions()
+void Game::collisions()
 {
 	for (unsigned int a = 0; a < enemiesbullets.size(); a++)
 	{
