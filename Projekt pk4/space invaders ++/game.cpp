@@ -49,7 +49,7 @@ void Game::movebullets()
 	Clock movementclock;
 	movementclock.restart();
 	float movementtime;
-	while (window->isOpen())
+	while (window->isOpen()&&!restart)
 	{
 		movementtime = movementclock.restart().asSeconds();
 		//moving players bullets
@@ -319,6 +319,8 @@ void Game::restartgame()
 {
 	if (enemiesthread.joinable())
 		enemiesthread.join();
+	if (bulletsthread.joinable())
+		bulletsthread.join();
 	this->restart = 0;
 	this->quit = 0;
 	while (level->getenemies().size() > 0)
