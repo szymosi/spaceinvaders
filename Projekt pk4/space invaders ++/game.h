@@ -36,6 +36,8 @@ private:
 	Clock frameClock;//used for calculateing frametime
 
 	std::thread enemiesthread;
+	std::thread bulletsthread;
+	std::mutex mutex;
 
 	bool error = 0;// 1 if fatal errors occerred
 public:
@@ -55,6 +57,6 @@ public:
 	void you_won();//Shows win screen
 	void restartgame();//starts the game from default level with full hp
 	void pausemenu();
-	void clearenemiesbullets();
+	void clearbullets();
 };
 

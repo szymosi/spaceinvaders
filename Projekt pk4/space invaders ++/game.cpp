@@ -46,26 +46,37 @@ float Game::getframetime()
 
 void Game::movebullets()
 {
-	//moving players bullets
-	for (unsigned int i = 0; i < bullets.size(); i++)
+	Clock movementclock;
+	movementclock.restart();
+	float movementtime;
+	while (window->isOpen())
 	{
-		bullets[i]->move(frametime);
-		if (!bullets[i]->CheckIfOnScreen(window->getSize(), bullets[i]->getposition()))
+		movementtime = movementclock.restart().asSeconds();
+		//moving players bullets
+		for (unsigned int i = 0; i < bullets.size(); i++)
 		{
-			delete bullets[i];
-			bullets.erase(bullets.begin()+i);
+			bullets[i]->move(movementtime);
+			if (!bullets[i]->CheckIfOnScreen(window->getSize(), bullets[i]->getposition()))
+			{
+				mutex.lock();
+				delete bullets[i];
+				bullets.erase(bullets.begin() + i);
+				mutex.unlock();
+			}
 		}
-	}
-	//moving enemies bullets
-	for (unsigned int a = 0; a < enemiesbullets.size(); a++)
-	{
-		Bullet*tmpbullet = enemiesbullets[a];
-		tmpbullet->move(frametime);
-		if (!tmpbullet->CheckIfOnScreen(window->getSize(), tmpbullet->getposition()))
+		//moving enemies bullets
+		for (unsigned int a = 0; a < enemiesbullets.size(); a++)
 		{
-			delete enemiesbullets[a];
-			enemiesbullets.erase(enemiesbullets.begin() + a);
+			enemiesbullets[a]->move(movementtime);
+			if (!enemiesbullets[a]->CheckIfOnScreen(window->getSize(), enemiesbullets[a]->getposition()))
+			{
+				mutex.lock();
+				delete enemiesbullets[a];
+				enemiesbullets.erase(enemiesbullets.begin() + a);
+				mutex.unlock();
+			}
 		}
+		sleep(sf::seconds(0.01f));//makeing sure movement time is long enough to make a move
 	}
 }
 
@@ -80,7 +91,8 @@ void Game::loop()
 		std::cout << exception << std::endl;
 		error = 1;
 	}
-	enemiesthread=std::thread(&Game::enemiesaction,this);
+	enemiesthread = std::thread(&Game::enemiesaction, this);
+	bulletsthread = std::thread(&Game::movebullets, this);
 	frameClock.restart();
 	while (window->isOpen() && error==0)
 	{
@@ -105,8 +117,7 @@ void Game::loop()
 				bullets.push_back(tmp);
 		}
 		player->SetPosition(Mouse::getPosition(*window),window->getSize());
-//		enemiesaction();
-		movebullets();
+//		movebullets();
 		draweverything();
 		collisions();
 		levelhandling();
@@ -114,6 +125,8 @@ void Game::loop()
 	}
 	if (enemiesthread.joinable())
 		enemiesthread.join();
+	if (bulletsthread.joinable())
+		bulletsthread.join();
 	if(error==1)
 		messagebox();
 }
@@ -177,7 +190,6 @@ void Game::enemiesaction()
 	Clock movementclock;
 	movementclock.restart();
 	float movementtime;
-	std::mutex mutex;
 	while (window->isOpen() && !restart)
 	{
 		movementtime = movementclock.restart().asSeconds();
@@ -190,7 +202,7 @@ void Game::enemiesaction()
 			this->level->getenemies()[i]->getbullets().clear();
 			mutex.unlock();
 		}
-		sleep(sf::seconds(0.01f));//makeing shure movement time is long enough to make a move
+		sleep(sf::seconds(0.01f));//makeing sure movement time is long enough to make a move
 	}
 }
 
@@ -201,7 +213,9 @@ void Game::collisions()
 		if (player->colides(enemiesbullets[a]))
 		{
 			player->changeHP(-(enemiesbullets[a]->getdmg()));//colisions of player and enemies bullets
+			mutex.lock();
 			delete enemiesbullets[a];
+			mutex.unlock();
 			enemiesbullets.erase(enemiesbullets.begin() + a);
 		}
 	}
@@ -216,7 +230,9 @@ void Game::collisions()
 			if (level->getenemies()[i]->colides(bullets[a]))
 			{
 				level->getenemies()[i]->chengehp(-bullets[a]->getdmg());
+				mutex.lock();
 				delete bullets[a];
+				mutex.unlock();
 				bullets.erase(bullets.begin() + a);
 			}
 		}
@@ -311,7 +327,7 @@ void Game::restartgame()
 	level->setLevelId(1);
 	this->score = 0;
 	this->gamepassed = 0;
-	this->clearenemiesbullets();
+	this->clearbullets();
 	this->loop();
 }
 
@@ -358,9 +374,12 @@ void Game::pausemenu()
 	}
 }
 
-void Game::clearenemiesbullets()
+void Game::clearbullets()
 {
 	for (unsigned int i = 0; i < enemiesbullets.size(); i++)
 		delete enemiesbullets[i];
 	enemiesbullets.clear();
+	for (unsigned int i = 0; i < bullets.size(); i++)
+		delete bullets[i];
+	bullets.clear();
 }
