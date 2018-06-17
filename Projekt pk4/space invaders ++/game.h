@@ -37,7 +37,8 @@ private:
 
 	std::thread enemiesthread;
 	std::thread bulletsthread;
-	std::mutex mutex;
+	std::mutex mutexplayer;
+	std::mutex mutexenemy;
 
 	bool error = 0;// 1 if fatal errors occerred
 public:

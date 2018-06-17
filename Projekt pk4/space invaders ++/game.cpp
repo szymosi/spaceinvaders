@@ -58,10 +58,10 @@ void Game::movebullets()
 			bullets[i]->move(movementtime);
 			if (!bullets[i]->CheckIfOnScreen(window->getSize(), bullets[i]->getposition()))
 			{
-				mutex.lock();
+				mutexplayer.lock();
 				delete bullets[i];
 				bullets.erase(bullets.begin() + i);
-				mutex.unlock();
+				mutexplayer.unlock();
 			}
 		}
 		//moving enemies bullets
@@ -70,10 +70,10 @@ void Game::movebullets()
 			enemiesbullets[a]->move(movementtime);
 			if (!enemiesbullets[a]->CheckIfOnScreen(window->getSize(), enemiesbullets[a]->getposition()))
 			{
-				mutex.lock();
+				mutexenemy.lock();
 				delete enemiesbullets[a];
 				enemiesbullets.erase(enemiesbullets.begin() + a);
-				mutex.unlock();
+				mutexenemy.unlock();
 			}
 		}
 		sleep(sf::seconds(0.01f));//makeing sure movement time is long enough to make a move
@@ -195,12 +195,12 @@ void Game::enemiesaction()
 		movementtime = movementclock.restart().asSeconds();
 		for (unsigned int i = 0; i < this->level->getenemies().size(); i++)
 		{
-			mutex.lock();
+			mutexenemy.lock();
 			this->level->getenemies()[i]->move(movementtime);
 			this->level->getenemies()[i]->shoot();
 			std::copy(this->level->getenemies()[i]->getbullets().begin(), this->level->getenemies()[i]->getbullets().end(), back_inserter(enemiesbullets));
 			this->level->getenemies()[i]->getbullets().clear();
-			mutex.unlock();
+			mutexenemy.unlock();
 		}
 		sleep(sf::seconds(0.01f));//makeing sure movement time is long enough to make a move
 	}
@@ -212,11 +212,11 @@ void Game::collisions()
 	{
 		if (player->colides(enemiesbullets[a]))
 		{
+			mutexenemy.lock();
 			player->changeHP(-(enemiesbullets[a]->getdmg()));//colisions of player and enemies bullets
-			mutex.lock();
 			delete enemiesbullets[a];
-			mutex.unlock();
 			enemiesbullets.erase(enemiesbullets.begin() + a);
+			mutexenemy.unlock();
 		}
 	}
 	for (unsigned int i = 0; i < level->getenemies().size(); i++)
@@ -229,11 +229,11 @@ void Game::collisions()
 		{
 			if (level->getenemies()[i]->colides(bullets[a]))
 			{
+				mutexplayer.lock();
 				level->getenemies()[i]->chengehp(-bullets[a]->getdmg());
-				mutex.lock();
 				delete bullets[a];
-				mutex.unlock();
 				bullets.erase(bullets.begin() + a);
+				mutexplayer.unlock();
 			}
 		}
 	}
