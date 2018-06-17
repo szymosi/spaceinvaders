@@ -15,6 +15,7 @@ Game::Game(int setscore, int setlevel, unsigned int numberoflevels)
 	window = new RenderWindow(VideoMode{ width, height }, "testy", Style::Default);
 	window->setFramerateLimit(60);
 	window->setMouseCursorVisible(false);
+	Mouse::setPosition(Vector2i(width / 2, height / 2), *window);
 	UI = new UserInterface();
 	gamepassed = 0;
 }
@@ -70,7 +71,6 @@ void Game::movebullets()
 
 void Game::loop()
 {
-	Mouse::setPosition(Vector2i(width/2,height/2),*window);
 	try
 	{
 		level->loadlevel();
@@ -80,11 +80,12 @@ void Game::loop()
 		std::cout << exception << std::endl;
 		error = 1;
 	}
-	Clock.restart();
+	enemiesthread=std::thread(&Game::enemiesaction,this);
+	frameClock.restart();
 	while (window->isOpen() && error==0)
 	{
-		frametime = Clock.getElapsedTime().asSeconds();
-		Clock.restart();
+		frametime = frameClock.getElapsedTime().asSeconds();
+		frameClock.restart();
 		window->clear(Color::Black);
 		window->pollEvent(event);
 		if (event.type == Event::Closed)
@@ -104,13 +105,15 @@ void Game::loop()
 				bullets.push_back(tmp);
 		}
 		player->SetPosition(Mouse::getPosition(*window),window->getSize());
-		enemiesaction();
+//		enemiesaction();
 		movebullets();
 		draweverything();
 		collisions();
 		levelhandling();
 		window->display();
 	}
+	if (enemiesthread.joinable())
+		enemiesthread.join();
 	if(error==1)
 		messagebox();
 }
@@ -171,12 +174,23 @@ void Game::levelhandling()
 
 void Game::enemiesaction()
 {
-	for (unsigned int i = 0; i < level->getenemies().size(); i++)
+	Clock movementclock;
+	movementclock.restart();
+	float movementtime;
+	std::mutex mutex;
+	while (window->isOpen() && !restart)
 	{
-		level->getenemies()[i]->move(frametime);
-		level->getenemies()[i]->shoot();
-		std::copy(level->getenemies()[i]->getbullets().begin(), level->getenemies()[i]->getbullets().end(), back_inserter(enemiesbullets));
-		level->getenemies()[i]->getbullets().clear();
+		movementtime = movementclock.restart().asSeconds();
+		for (unsigned int i = 0; i < this->level->getenemies().size(); i++)
+		{
+			mutex.lock();
+			this->level->getenemies()[i]->move(movementtime);
+			this->level->getenemies()[i]->shoot();
+			std::copy(this->level->getenemies()[i]->getbullets().begin(), this->level->getenemies()[i]->getbullets().end(), back_inserter(enemiesbullets));
+			this->level->getenemies()[i]->getbullets().clear();
+			mutex.unlock();
+		}
+		sleep(sf::seconds(0.01f));//makeing shure movement time is long enough to make a move
 	}
 }
 
@@ -287,6 +301,8 @@ void Game::you_won()
 
 void Game::restartgame()
 {
+	if (enemiesthread.joinable())
+		enemiesthread.join();
 	this->restart = 0;
 	this->quit = 0;
 	while (level->getenemies().size() > 0)
@@ -338,7 +354,7 @@ void Game::pausemenu()
 	}
 	if (resume == 1)
 	{
-		this->Clock.restart();
+		this->frameClock.restart();
 	}
 }
 

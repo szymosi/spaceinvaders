@@ -7,6 +7,8 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <thread>
+#include <mutex>
 #include <Windows.h>
 
 #define height 720
@@ -31,7 +33,9 @@ private:
 
 	Event event; //SFML events
 	RenderWindow*window;
-	Clock Clock;//used for calculateing frametime
+	Clock frameClock;//used for calculateing frametime
+
+	std::thread enemiesthread;
 
 	bool error = 0;// 1 if fatal errors occerred
 public:
