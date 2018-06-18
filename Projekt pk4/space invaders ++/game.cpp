@@ -76,7 +76,7 @@ void Game::movebullets()
 				mutexenemy.unlock();
 			}
 		}
-		sleep(sf::seconds(0.01f));//makeing sure movement time is long enough to make a move
+		sleep(sf::seconds(0.8*frametime));//makeing sure movement time is long enough to make a move
 	}
 }
 
@@ -141,18 +141,21 @@ void Game::draweverything()
 	UI->GetHpBar()->draw(window);
 	UI->GetHpBackground()->draw(window);
 	// draw players bullets
+	mutexplayer.lock();
 	for (unsigned int i = 0; i < bullets.size(); i++)
 	{
 		bullets[i]->draw(window);
 	}
+	mutexplayer.unlock();
 	for (unsigned int i = 0; i < level->getenemies().size(); i++)
 	{
+		mutexenemy.lock();
 		for (unsigned int a = 0; a < enemiesbullets.size(); a++)
 		{
 			enemiesbullets[a]->draw(window);//draw enemies bullets
 		}
 		level->getenemies()[i]->draw(window);//draw enemies
-		
+		mutexenemy.unlock();
 	}
 	player->draw(window);//draw player
 }
@@ -202,7 +205,7 @@ void Game::enemiesaction()
 			this->level->getenemies()[i]->getbullets().clear();
 			mutexenemy.unlock();
 		}
-		sleep(sf::seconds(0.01f));//makeing sure movement time is long enough to make a move
+		sleep(sf::seconds(0.9*frametime));//makeing sure movement time is long enough to make a move
 	}
 }
 
