@@ -12,7 +12,7 @@ Game::Game(int setscore, int setlevel, unsigned int numberoflevels)
 	player = new Player();
 	this->numberoflevels = numberoflevels;
 	level = new Level(player, setlevel);
-	window = new RenderWindow(VideoMode{ width, height }, "testy", Style::Default);
+	window = new RenderWindow(VideoMode{ width, height }, "space invaders", Style::Default);
 	window->setFramerateLimit(60);
 	window->setMouseCursorVisible(false);
 	Mouse::setPosition(Vector2i(width / 2, height / 2), *window);
@@ -53,29 +53,29 @@ void Game::movebullets()
 	{
 		movementtime = movementclock.restart().asSeconds();
 		//moving players bullets
+		mutexplayer.lock();
 		for (unsigned int i = 0; i < bullets.size(); i++)
 		{
 			bullets[i]->move(movementtime);
 			if (!bullets[i]->CheckIfOnScreen(window->getSize(), bullets[i]->getposition()))
 			{
-				mutexplayer.lock();
 				delete bullets[i];
 				bullets.erase(bullets.begin() + i);
-				mutexplayer.unlock();
 			}
 		}
+		mutexplayer.unlock();
 		//moving enemies bullets
+		mutexenemy.lock();
 		for (unsigned int a = 0; a < enemiesbullets.size(); a++)
 		{
 			enemiesbullets[a]->move(movementtime);
 			if (!enemiesbullets[a]->CheckIfOnScreen(window->getSize(), enemiesbullets[a]->getposition()))
 			{
-				mutexenemy.lock();
 				delete enemiesbullets[a];
 				enemiesbullets.erase(enemiesbullets.begin() + a);
-				mutexenemy.unlock();
 			}
 		}
+		mutexenemy.unlock();
 		sleep(sf::seconds(0.8*frametime));//makeing sure movement time is long enough to make a move
 	}
 }
@@ -196,32 +196,33 @@ void Game::enemiesaction()
 	while (window->isOpen() && !restart)
 	{
 		movementtime = movementclock.restart().asSeconds();
+		mutexenemy.lock();
 		for (unsigned int i = 0; i < this->level->getenemies().size(); i++)
 		{
-			mutexenemy.lock();
 			this->level->getenemies()[i]->move(movementtime);
 			this->level->getenemies()[i]->shoot();
 			std::copy(this->level->getenemies()[i]->getbullets().begin(), this->level->getenemies()[i]->getbullets().end(), back_inserter(enemiesbullets));
 			this->level->getenemies()[i]->getbullets().clear();
-			mutexenemy.unlock();
 		}
+		mutexenemy.unlock();
 		sleep(sf::seconds(0.9*frametime));//makeing sure movement time is long enough to make a move
 	}
 }
 
 void Game::collisions()
 {
+	mutexenemy.lock();
 	for (unsigned int a = 0; a < enemiesbullets.size(); a++)
 	{
 		if (player->colides(enemiesbullets[a]))
 		{
-			mutexenemy.lock();
 			player->changeHP(-(enemiesbullets[a]->getdmg()));//colisions of player and enemies bullets
 			delete enemiesbullets[a];
 			enemiesbullets.erase(enemiesbullets.begin() + a);
-			mutexenemy.unlock();
 		}
 	}
+	mutexenemy.unlock();
+	mutexplayer.lock();
 	for (unsigned int i = 0; i < level->getenemies().size(); i++)
 	{
 		if (player->colides(level->getenemies()[i]))
@@ -232,14 +233,15 @@ void Game::collisions()
 		{
 			if (level->getenemies()[i]->colides(bullets[a]))
 			{
-				mutexplayer.lock();
+				
 				level->getenemies()[i]->chengehp(-bullets[a]->getdmg());
 				delete bullets[a];
 				bullets.erase(bullets.begin() + a);
-				mutexplayer.unlock();
+				
 			}
 		}
 	}
+	mutexplayer.unlock();
 }
 
 void Game::messagebox()
